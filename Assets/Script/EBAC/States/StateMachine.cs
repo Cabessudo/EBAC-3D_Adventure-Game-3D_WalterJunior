@@ -8,6 +8,7 @@ namespace Ebac.StateMachine
     {
         public Dictionary<T, StateBase> dictionary;
         private StateBase _currState;
+        private object obj;
 
         public StateBase currState
         {
@@ -25,17 +26,18 @@ namespace Ebac.StateMachine
             dictionary.Add(enumType, state);
         }
 
-        public void SwitchState(T state)
+        public void SwitchState(T state, object o = null)
         {
             if(_currState != null) _currState.OnStateExit();
 
             _currState = dictionary[state];
-            _currState.OnStateEnter();
+            obj = o;
+            _currState.OnStateEnter(obj);
         }
 
         public void Update()
         {
-            if(_currState != null) _currState.OnStateStay();
+            if(_currState != null) _currState.OnStateStay(obj);
         }
     }
 }

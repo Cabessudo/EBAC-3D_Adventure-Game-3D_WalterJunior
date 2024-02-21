@@ -11,7 +11,7 @@ namespace Ebac.StateMachine
             Debug.Log("OnStateEnter");
         }
 
-        public virtual void OnStateStay()
+        public virtual void OnStateStay(object o = null)
         {
             Debug.Log("OnStateStay");
         }
