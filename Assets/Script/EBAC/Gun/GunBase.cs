@@ -10,55 +10,30 @@ public class GunBase : MonoBehaviour
 
     [Header("Shoot")]
     private Coroutine _currRoutine;
-    public List<GameObject> shoots;
     public GameObject shootObj;
     public Transform shootPos;
-    public int amountShoot;
 
     void Start()
     {
         Init();
     }
 
-    void Init()
+    protected virtual void Init()
     {
-        shoots = new List<GameObject>();
 
-        for(int i = 0; i < amountShoot; i++)
-        {
-            var obj = (GameObject)Instantiate(shootObj);
-            shoots.Add(obj);
-            obj.SetActive(false);
-        }
     }
 
     protected virtual void Shoot()
     {
-        var shoot = GetShoot();
-        if(shoot != null)
+        var shoot = Instantiate(shootObj, shootPos);
+        shoot.transform.parent = null;
+
+        var projectile = shoot.GetComponent<ProjectileBase>();
+        if(projectile != null)
         {
-            shoot.SetActive(true);
-            shoot.transform.position = shootPos.position;
-            shoot.transform.rotation = shootPos.rotation;
-
-            var projectile = shoot.GetComponent<ProjectileBase>();
-            if(projectile != null)
-            {
-                projectile.speed = shootSpeed;
-                projectile.DestroyShoot();
-            }
+            projectile.speed = shootSpeed;
+            projectile.DestroyShoot();
         }
-    }
-
-    public GameObject GetShoot()
-    {
-        for(int i = 0; i < shoots.Count; i++)
-        {
-            if(!shoots[i].activeInHierarchy)
-                return shoots[i];
-        }
-
-        return null;
     }
 
     protected virtual IEnumerator ShootRoutine()
@@ -72,6 +47,7 @@ public class GunBase : MonoBehaviour
 
     public void StartShoot()
     {
+        StopShoot();
         _currRoutine = StartCoroutine(ShootRoutine());
     }
 
@@ -81,3 +57,48 @@ public class GunBase : MonoBehaviour
             StopCoroutine(_currRoutine);
     }
 }
+
+//Old Shoot
+    // void PoolObjects()
+    // {
+    //     shoots = new List<GameObject>();
+
+    //     if(amountShoot > shootsLength)
+    //     {
+    //         for(int i = 0; i < amountShoot; i++)
+    //         {
+    //             var obj = (GameObject)Instantiate(shootObj);
+    //             shoots.Add(obj);
+    //             obj.SetActive(false);
+    //         }
+    //     }
+    // }
+
+    // protected virtual void Shoot()
+    // {
+    //     var shoot = GetShoot();
+    //     if(shoot != null)
+    //     {
+    //         shoot.SetActive(true);
+    //         shoot.transform.position = shootPos.position;
+    //         shoot.transform.rotation = shootPos.rotation;
+
+    //         var projectile = shoot.GetComponent<ProjectileBase>();
+    //         if(projectile != null)
+    //         {
+    //             projectile.shootBase = true;
+    //             projectile.speed = shootSpeed;
+    //             projectile.DestroyShoot();
+    //         }
+    //     }
+    // }
+    // public GameObject GetShoot()
+    // {
+    //     for(int i = 0; i < shoots.Count; i++)
+    //     {
+    //         if(!shoots[i].activeInHierarchy)
+    //             return shoots[i];
+    //     }
+
+    //     return null;
+    // }

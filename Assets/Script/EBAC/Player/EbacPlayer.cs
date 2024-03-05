@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EbacPlayer : MonoBehaviour
+public class EbacPlayer : MonoBehaviour, IDamageable
 {
+    public Rigidbody rb;
     public CharacterController player;
     public Animator anim;
     public float speed;
@@ -12,8 +13,10 @@ public class EbacPlayer : MonoBehaviour
     public float gravity = 9.8f;
     private float gravityForce;
     public float jumpForce;
+    public int health = 10;
 
     public KeyCode runKey = KeyCode.LeftShift;
+    public List<FlashColor> flashColors;
 
     // Update is called once per frame
     void Update()
@@ -50,5 +53,32 @@ public class EbacPlayer : MonoBehaviour
 
         player.Move(speedVector * Time.deltaTime);
         anim.SetBool("Run", vt != 0);
+    }
+
+    void OnValidate()
+    {
+        Init();
+    }
+
+    void Init()
+    {
+        flashColors = new List<FlashColor>();
+
+        foreach(var flash in transform.GetComponentsInChildren<FlashColor>())
+        {
+            if(flash != null)
+            flashColors.Add(flash);
+        }
+    }
+
+    public void Damage(int damage)
+    {
+        flashColors.ForEach(i => i.Flash()); 
+        health -= damage;  
+    }
+
+    public void Damage(int damage, Vector3 dir, float force = 0)
+    {
+        Damage(damage);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAbilityShoot : PlayerAbilityBase
 {
-    public GunBase gun;
+    public List<GunBase> guns;
     public Transform gunPos;
 
     private GunBase _currGun;
@@ -16,12 +16,19 @@ public class PlayerAbilityShoot : PlayerAbilityBase
 
         inputs.Gameplay.Shoot.performed += ctx => StartShoot();
         inputs.Gameplay.Shoot.canceled += ctx => StopShoot();
+
+        inputs.Gameplay.ChangeToFirstGun.performed += ctx => GetGun();
+        inputs.Gameplay.ChangeToSecondGun.performed += ctx => GetGun(1);
     }
 
-    private void GetGun()
+    private void GetGun(int i = 0)
     {
-        _currGun = Instantiate(gun, gunPos);
-        _currGun.transform.localPosition = _currGun.transform.eulerAngles = Vector3.zero;
+        if(_currGun != null && _currGun != guns[i]) Destroy(_currGun.gameObject);
+
+        _currGun = Instantiate(guns[i], gunPos);
+        _currGun.transform.localPosition = Vector3.zero;
+
+        // _currGun.transform.localPosition = _currGun.transform.eulerAngles = Vector3.zero;
     }
 
     private void StartShoot()

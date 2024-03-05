@@ -6,14 +6,14 @@ namespace Ebac.StateMachine
 {
     public class StateBase
     {
-        public virtual void OnStateEnter(object o = null)
+        public virtual void OnStateEnter(params object[] o)
         {
-            Debug.Log("OnStateEnter");
+            // Debug.Log("OnStateEnter");
         }
 
-        public virtual void OnStateStay(object o = null)
+        public virtual void OnStateStay(params object[] o)
         {
-            Debug.Log("OnStateStay");
+            // Debug.Log("OnStateStay");
         }
 
         public virtual void OnStateExit()

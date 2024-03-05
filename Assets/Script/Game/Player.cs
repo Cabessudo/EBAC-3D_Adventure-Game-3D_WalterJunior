@@ -56,9 +56,9 @@ public class Player : MonoBehaviour
     {
         stateMachine = new StateMachine<PlayerStates>();
         stateMachine.Init();
-        stateMachine.RegisterStates(PlayerStates.Idle, new PlayerState.IdleState());
-        stateMachine.RegisterStates(PlayerStates.Walk, new PlayerState.WalkState());
-        stateMachine.RegisterStates(PlayerStates.Jump, new PlayerState.JumpState());
+        stateMachine.RegisterStates(PlayerStates.Idle, new PlayerIdleState());
+        stateMachine.RegisterStates(PlayerStates.Walk, new PlayerWalkState());
+        stateMachine.RegisterStates(PlayerStates.Jump, new PlayerJumpState());
 
         stateMachine.SwitchState(PlayerStates.Idle);
     }

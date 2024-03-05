@@ -18,6 +18,11 @@ public class GunShootLimt : GunBase
         GetAllUIs();
     }
 
+    void Update()
+    {
+        UpdateUI();
+    }
+
     protected override IEnumerator ShootRoutine()
     {
         while(true)
