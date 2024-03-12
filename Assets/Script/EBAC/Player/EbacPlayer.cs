@@ -2,21 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EbacPlayer : MonoBehaviour, IDamageable
+public class EbacPlayer : MonoBehaviour
 {
     public Rigidbody rb;
     public CharacterController player;
     public Animator anim;
+    public HealthBase playerHealth;
     public float speed;
     public float runSpeed = 2;
     public float turnSpeed;
     public float gravity = 9.8f;
     private float gravityForce;
     public float jumpForce;
-    public int health = 10;
+    public bool _isAlive = true;
 
     public KeyCode runKey = KeyCode.LeftShift;
     public List<FlashColor> flashColors;
+
+    [Header("Cam Shake")]
+    public float shakeMagnitude = 1;
+
+    void Awake()
+    {
+        OnValidate();
+    }
 
     // Update is called once per frame
     void Update()
@@ -53,6 +62,12 @@ public class EbacPlayer : MonoBehaviour, IDamageable
 
         player.Move(speedVector * Time.deltaTime);
         anim.SetBool("Run", vt != 0);
+
+        if(!_isAlive)
+        {
+            _isAlive = true;
+            Invoke(nameof(Revive), 2);
+        }
     }
 
     void OnValidate()
@@ -61,6 +76,38 @@ public class EbacPlayer : MonoBehaviour, IDamageable
     }
 
     void Init()
+    {
+        PlayerFlash();   
+        SetPlayerHealth();
+        SetHealthActions();
+    }
+
+    #region  Life & Death
+
+    [NaughtyAttributes.Button]
+    void Revive()
+    {
+        playerHealth.RestartLife();
+        SetHealthActions();
+        Respaw();
+        anim.SetTrigger("Revive");
+        Invoke(nameof(EnableCollider), .1f);
+    }
+
+    void Respaw()
+    {
+        if(CheckpointManager.Instance.CheckpointsCheck())
+        {
+            transform.position = CheckpointManager.Instance.GetLastCheckpointPos();
+        }
+    }
+
+    void SetPlayerHealth()
+    {
+        if(playerHealth == null) playerHealth = GetComponent<HealthBase>();
+    }
+
+    void PlayerFlash()
     {
         flashColors = new List<FlashColor>();
 
@@ -71,14 +118,41 @@ public class EbacPlayer : MonoBehaviour, IDamageable
         }
     }
 
-    public void Damage(int damage)
+    void SetHealthActions()
     {
-        flashColors.ForEach(i => i.Flash()); 
-        health -= damage;  
+        if(playerHealth != null) 
+        {
+            playerHealth.onDamage += OnDamagePlayer;
+            playerHealth.onKill += OnKillPlayer;
+        }
+
     }
 
-    public void Damage(int damage, Vector3 dir, float force = 0)
+    public void OnKillPlayer()
     {
-        Damage(damage);
+        playerHealth.onDamage -= OnDamagePlayer;
+        playerHealth.onKill -= OnKillPlayer;
+
+        anim.SetTrigger("Death");
+        _isAlive = false;
+
+        //Disable Colliders
+        foreach(var colliders in transform.GetComponents<Collider>())
+            colliders.enabled = false;
     }
+
+    void EnableCollider()
+    {
+        foreach(var colliders in transform.GetComponents<Collider>())
+            colliders.enabled = true;
+    }
+
+    public void OnDamagePlayer(HealthBase health)
+    {
+        flashColors.ForEach(i => i.Flash()); 
+        EffectsManagers.Instance.ChangeVignete();
+        ShakeCamera.Instance.Shake(shakeMagnitude, shakeMagnitude);
+    }
+
+    #endregion
 }

@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class HealthBase : MonoBehaviour
+public class HealthBase : MonoBehaviour, IDamageable
 {
     public int maxLife = 5;
-    private int _currLife;
+    public int currLife;
     public bool destroyOnDeath;
 
     public Action onKill;
     public Action<HealthBase> onDamage;
+
+
 
     void Awake()
     {
@@ -22,9 +24,9 @@ public class HealthBase : MonoBehaviour
         RestartLife();
     }
 
-    private void RestartLife()
+    public virtual void RestartLife()
     {
-        _currLife = maxLife;
+        currLife = maxLife;
     }
 
     [NaughtyAttributes.Button]
@@ -41,21 +43,25 @@ public class HealthBase : MonoBehaviour
         onKill?.Invoke();
     }
 
-
     public virtual void TakeDamage(int damage)
     {
-        _currLife -= damage;
-        // if(flashColor != null)
-        //     flashColor.Flash();
+        currLife -= damage;
+        onDamage?.Invoke(this);
 
-        // if(hurtPS != null)
-        //     hurtPS.Emit(15);
-
-        if(_currLife <= 0)
+        if(currLife <= 0)
         {
             Kill();
         }
 
-        onDamage?.Invoke(this);
+    }
+
+    public void Damage(int damage)
+    {
+        TakeDamage(damage);
+    }
+
+    public void Damage(int damage, Vector3 dir, float force)
+    {
+        Damage(damage); 
     }
 }

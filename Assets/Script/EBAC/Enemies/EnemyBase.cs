@@ -200,7 +200,7 @@ namespace Enemy
         {
             if(collision.gameObject.CompareTag("Player"))
             {
-                _player.Damage(enemyDamage);
+                _player.playerHealth.Damage(enemyDamage);
             }
         }
     }

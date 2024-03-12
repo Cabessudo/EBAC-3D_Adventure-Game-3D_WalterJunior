@@ -121,8 +121,9 @@ namespace Enemy
             //Damage On Player
             if(playerOnRadius)
             {
+                ShakeCamera.Instance.Shake();
                 var dir = _player.transform.position - transform.position;
-                _player.Damage(explodeDamage, dir.normalized, explosionForce);
+                _player.playerHealth.Damage(explodeDamage, dir.normalized, explosionForce);
             }
             
             if(hurtPS != null) hurtPS.Emit(100);

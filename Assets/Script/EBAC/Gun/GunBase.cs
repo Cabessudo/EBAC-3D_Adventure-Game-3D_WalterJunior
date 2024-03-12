@@ -12,7 +12,7 @@ public class GunBase : MonoBehaviour
     private Coroutine _currRoutine;
     public GameObject shootObj;
     public Transform shootPos;
-
+    
     void Start()
     {
         Init();

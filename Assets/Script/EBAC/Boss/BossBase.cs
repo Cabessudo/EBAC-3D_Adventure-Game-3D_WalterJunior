@@ -36,7 +36,6 @@ namespace Boss
         public float timeToAtk = 1;
         public int attackTimes = 5;
         public float timeBtwAttack = .5f;
-        private bool _isAttacking;
 
         [Header("Animation")]
         private Ease easeSpawn = Ease.Linear;
@@ -175,11 +174,9 @@ namespace Boss
             while(attackTimes > atk)
             {
                 atk++;
-                _isAttacking = true;
                 transform.DOScale(1.2f, .1f).SetLoops(2, LoopType.Yoyo);
                 Shoot();
                 yield return new WaitForSeconds(timeBtwAttack);
-                _isAttacking = false;
             }
 
             onAction?.Invoke();

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class UIGunUpdater : MonoBehaviour
+public class UIFillUpdater : MonoBehaviour
 {
     public Image gunImage;
 
@@ -25,7 +25,6 @@ public class UIGunUpdater : MonoBehaviour
 
     public void UpdateValue(float curr, float max)
     {
-        // gunImage.fillAmount = 1 - (curr/max);
         if(_currTween != null) _currTween.Kill();
         gunImage.DOFillAmount(1 - (curr/max), duration).SetEase(ease);
     }
