@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ebac.Singleton;
 
-public class EbacPlayer : MonoBehaviour
+public class EbacPlayer : Singleton<EbacPlayer>
 {
     public Rigidbody rb;
     public CharacterController player;
@@ -22,8 +23,9 @@ public class EbacPlayer : MonoBehaviour
     [Header("Cam Shake")]
     public float shakeMagnitude = 1;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         OnValidate();
     }
 

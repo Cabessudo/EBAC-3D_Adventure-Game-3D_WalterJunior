@@ -29,6 +29,13 @@ public class ShakeCamera : Singleton<ShakeCamera>
         timeToShake = time;
     }
 
+    void ShakeStop()
+    {
+        timeToShake = 0;
+        cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -36,9 +43,7 @@ public class ShakeCamera : Singleton<ShakeCamera>
             timeToShake -= Time.deltaTime;
         else
         {
-            timeToShake = 0;
-            cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
-            cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
+            ShakeStop();
         }
     }
 }
