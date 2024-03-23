@@ -93,12 +93,12 @@ namespace Enemy
             if(flashColor != null) flashColor.Flash();
         }
 
-        public void Damage(int damage)
+        public void Damage(float damage)
         {
             if(enemyHealth != null) enemyHealth.TakeDamage(damage);
         }
 
-        public void Damage(int damage, Vector3 dir, float force)
+        public void Damage(float damage, Vector3 dir, float force)
         {
             Damage(damage);
             transform.DOMove(transform.position - dir, .15f);

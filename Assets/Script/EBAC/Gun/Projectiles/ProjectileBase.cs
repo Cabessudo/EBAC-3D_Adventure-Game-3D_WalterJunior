@@ -51,19 +51,4 @@ public class ProjectileBase : MonoBehaviour
         Destroy(gameObject);
     }
 }
-    // private GameObject cam;
-    // private float range;
 
-    // private LayerMask target;
-    
-
-    // void Shoot()
-    // {
-    //     RaycastHit hit;
-
-    //     if(Physics.Raycast(cam.transform.position, Vector3.forward, out hit, range))
-    //     {
-    //         var enemy = hit.transform.GetComponent<Player>();
-    //         enemy.transform.position += hit.transform.position;
-    //     }
-    // }

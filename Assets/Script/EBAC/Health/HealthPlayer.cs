@@ -13,7 +13,7 @@ public class HealthPlayer : HealthBase
         UpdateUI();
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
         UpdateUI();
@@ -22,5 +22,17 @@ public class HealthPlayer : HealthBase
     void UpdateUI()
     {
         if(healthBar != null) healthBar.UpdateValue((float)currLife / maxLife);
+    }
+
+    public void ChangeDamage(float damageMultiply, float time)
+    {
+        StartCoroutine(ChangeDamageRoutine(damageMultiply, time));
+    }
+
+    IEnumerator ChangeDamageRoutine(float damageMultiply, float time)
+    {
+        this.damageMultiply = damageMultiply;
+        yield return new WaitForSeconds(time);
+        this.damageMultiply = 1;
     }
 }

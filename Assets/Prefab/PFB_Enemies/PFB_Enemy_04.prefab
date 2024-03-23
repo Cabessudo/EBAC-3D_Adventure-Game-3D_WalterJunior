@@ -4923,7 +4923,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6370737887816365513
 Transform:
   m_ObjectHideFlags: 0
@@ -4970,7 +4970,8 @@ MonoBehaviour:
   enemyCollider: {fileID: 6370737887816365524}
   flashColor: {fileID: 6370737887816365515}
   hurtPS: {fileID: 6370737886667458692}
-  maxLife: 5
+  enemyHealth: {fileID: 0}
+  enemyDamage: 1
   speed: 5
   turnSpeed: 5
   timeToTurn: 1
@@ -4979,9 +4980,13 @@ MonoBehaviour:
   patrolDuration: 1
   spawnAnim_b: 1
   startAnimDuration: 0.2
-  _player: {fileID: 0}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  playerDetected: 0
+  radius: 14.86
   enemyGun: {fileID: 688679907452074603}
-  lookAtPlayer: 0
+  lookAtPlayer: 1
 --- !u!114 &6370737887816365512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5130,6 +5135,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6370737887816365513}
     m_Modifications:
+    - target: {fileID: -2271362928338339418, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
+      propertyPath: timeBtwShoots
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2408343864444902173, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: m_RootOrder
       value: 2

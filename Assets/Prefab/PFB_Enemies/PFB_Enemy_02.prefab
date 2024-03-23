@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3437306002920366755}
   - component: {fileID: 3437306002920366764}
   - component: {fileID: 3437306002920366765}
+  - component: {fileID: 3993114331142040467}
   - component: {fileID: 3437306002920366766}
   - component: {fileID: 3437306002920366767}
   - component: {fileID: 5408367289764297827}
@@ -66,7 +67,8 @@ MonoBehaviour:
   enemyCollider: {fileID: 3437306002920366764}
   flashColor: {fileID: 3437306002920366767}
   hurtPS: {fileID: 3437306003609432126}
-  maxLife: 20
+  enemyHealth: {fileID: 3993114331142040467}
+  enemyDamage: 1
   speed: 2
   turnSpeed: 5
   timeToTurn: 2
@@ -75,7 +77,26 @@ MonoBehaviour:
   patrolDuration: 1
   spawnAnim_b: 1
   startAnimDuration: 0.2
-  _player: {fileID: 0}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  playerDetected: 0
+  radius: 0
+--- !u!114 &3993114331142040467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437306002920366760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2da67daa1a08ba48b1c4419a240050e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 5
+  currLife: 0
+  destroyOnDeath: 0
 --- !u!114 &3437306002920366766
 MonoBehaviour:
   m_ObjectHideFlags: 0

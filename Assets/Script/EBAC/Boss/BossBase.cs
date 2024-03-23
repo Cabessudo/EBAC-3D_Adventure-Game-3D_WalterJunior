@@ -133,10 +133,9 @@ namespace Boss
         public void Walk(Action action = null)
         {
             var currIndex = UnityEngine.Random.Range(0, waypoints.Count);
-            if(_index == currIndex) 
-                currIndex++;
-            else if(_index >= waypoints.Count) 
-                currIndex = 0;
+            if(_index == currIndex) currIndex++;
+
+            if(currIndex >= waypoints.Count) currIndex = 0;
 
             _index = currIndex;
             StartCoroutine(WalkRoutine(waypoints[_index], action));

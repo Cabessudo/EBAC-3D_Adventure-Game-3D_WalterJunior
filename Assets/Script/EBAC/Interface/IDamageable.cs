@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void Damage(int damage);
-    public void Damage(int damage, Vector3 dir, float force);
+    public void Damage(float damage);
+    public void Damage(float damage, Vector3 dir, float force);
 }

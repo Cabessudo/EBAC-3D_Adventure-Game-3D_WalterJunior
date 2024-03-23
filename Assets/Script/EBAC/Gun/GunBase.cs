@@ -18,10 +18,7 @@ public class GunBase : MonoBehaviour
         Init();
     }
 
-    protected virtual void Init()
-    {
-
-    }
+    protected virtual void Init(){}
 
     protected virtual void Shoot()
     {

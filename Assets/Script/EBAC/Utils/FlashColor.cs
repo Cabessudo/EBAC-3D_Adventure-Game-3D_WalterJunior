@@ -7,7 +7,8 @@ public class FlashColor : MonoBehaviour
 {
     public MeshRenderer meshRenderer;
     public SkinnedMeshRenderer skinnedMeshRenderer;
-    private Color _damageColor = Color.red;
+    public Color _colorFlash = Color.red;
+    public string colorParameter = "_EmissionColor";
 
 
     [Header("Animation")]
@@ -20,13 +21,15 @@ public class FlashColor : MonoBehaviour
         if(skinnedMeshRenderer == null) skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
     }
 
+    [NaughtyAttributes.Button]
     public void Flash()
     {
+
         if(skinnedMeshRenderer != null && !_currTween.IsActive())
-            _currTween = skinnedMeshRenderer.material.DOColor(_damageColor, "_EmissionColor", duration).SetLoops(2, LoopType.Yoyo);
+            _currTween = skinnedMeshRenderer.material.DOColor(_colorFlash, colorParameter, duration).SetLoops(2, LoopType.Yoyo);
 
         if(meshRenderer != null && !_currTween.IsActive())
-            _currTween = meshRenderer.material.DOColor(_damageColor, "_EmissionColor", duration).SetLoops(2, LoopType.Yoyo);
+            _currTween = meshRenderer.material.DOColor(_colorFlash, colorParameter, duration).SetLoops(2, LoopType.Yoyo);
     }
 
     public void KillTween()

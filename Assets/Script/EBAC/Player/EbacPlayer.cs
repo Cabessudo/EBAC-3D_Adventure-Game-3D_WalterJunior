@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ebac.Singleton;
+using Cloth;
 
 public class EbacPlayer : Singleton<EbacPlayer>
 {
     public Rigidbody rb;
     public CharacterController player;
     public Animator anim;
-    public HealthBase playerHealth;
+    public HealthPlayer playerHealth;
+    [SerializeField] private ClothChanger _cloths;
     public float speed;
     public float runSpeed = 2;
     public float turnSpeed;
@@ -16,6 +18,7 @@ public class EbacPlayer : Singleton<EbacPlayer>
     private float gravityForce;
     public float jumpForce;
     public bool _isAlive = true;
+    private bool _isjumping;
 
     public KeyCode runKey = KeyCode.LeftShift;
     public List<FlashColor> flashColors;
@@ -42,9 +45,22 @@ public class EbacPlayer : Singleton<EbacPlayer>
 
         if(player.isGrounded)
         {
+            if(_isjumping)
+            {
+                _isjumping = false;
+                anim.SetTrigger("Land");
+            }
+
             gravityForce = 0;
             if(Input.GetKeyDown(KeyCode.Space))
+            {
                 gravityForce = jumpForce;
+                if(!_isjumping)
+                {
+                    _isjumping = true;
+                    anim.SetTrigger("Jump");
+                }
+            }
         }
 
         gravityForce -= gravity * Time.deltaTime; 
@@ -106,7 +122,7 @@ public class EbacPlayer : Singleton<EbacPlayer>
 
     void SetPlayerHealth()
     {
-        if(playerHealth == null) playerHealth = GetComponent<HealthBase>();
+        if(playerHealth == null) playerHealth = GetComponent<HealthPlayer>();
     }
 
     void PlayerFlash()
@@ -156,5 +172,32 @@ public class EbacPlayer : Singleton<EbacPlayer>
         ShakeCamera.Instance.Shake(shakeMagnitude, shakeMagnitude);
     }
 
+    #endregion
+
+    #region Cloth PowerUp
+    public void ChangeCloth(Texture tex, float time)
+    {
+        StartCoroutine(ChangeClothRoutine(tex, time));
+    }
+
+    IEnumerator ChangeClothRoutine(Texture currTex, float time)
+    {
+        _cloths.ChangeCloth(currTex);
+        yield return new WaitForSeconds(time);
+        _cloths.ResetCloth(); 
+    }
+
+    public void ChangeSpeed(float speed, float time)
+    {
+        StartCoroutine(ChangeSpeedRoutine(speed, time));
+    }
+
+    IEnumerator ChangeSpeedRoutine(float currSpeed, float time)
+    {
+        var defaultSpeed = speed;
+        speed = currSpeed;
+        yield return new WaitForSeconds(time);
+        speed = defaultSpeed;   
+    }
     #endregion
 }

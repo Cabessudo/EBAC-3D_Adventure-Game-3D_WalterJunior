@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1959329708169807517}
-  - component: {fileID: 1959329708169807488}
   - component: {fileID: 5414030688613544433}
   - component: {fileID: 4389304538904117662}
   - component: {fileID: 1959329708169807516}
@@ -30,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959329708169807494}
-  m_LocalRotation: {x: -0, y: -0.99996644, z: -0, w: 0.008191859}
+  m_LocalRotation: {x: 0, y: -0.99996644, z: 0, w: 0.0081942165}
   m_LocalPosition: {x: 414.05637, y: -8.27, z: 65.615326}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -40,19 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -179.061, z: 0}
---- !u!65 &1959329708169807488
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959329708169807494}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 2.8683777, y: 3.7682106, z: 2.2146683}
-  m_Center: {x: -0.13981628, y: 1.8226489, z: -0.0001411438}
 --- !u!114 &5414030688613544433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,12 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71332dedf8bfb474a99c2f707fe29db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCollider: {fileID: 1959329708169807488}
+  enemyCollider: {fileID: 5465412778250068145}
   flashColor: {fileID: 1959329708169807519}
   hurtPS: {fileID: 1959329709402733520}
   enemyHealth: {fileID: 4389304538904117662}
   enemyDamage: 1
-  speed: 5
+  speed: 3
   turnSpeed: 5
   timeToTurn: 1
   timeStop: 2
@@ -82,18 +68,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerDetected: 0
-  radius: 0
-  timeToExplode: 2
+  radius: 12.04
+  _explode: 0
+  timeToExplode: 1
   explodeDamage: 5
+  gingle: 20
   ease: 27
-  zAngleFloat: 10
-  mesh: {fileID: 0}
-  explodeSize: 1.5
-  explodeDuration: 2
+  zAngleFloat: 15
+  mesh: {fileID: 8924661403089693420}
+  explodeSize: 1.2
+  explodeDuration: 1
   playerOnRadius: 0
-  showExplodeRadius: 0
-  explodeRadius: 0
-  explosionForce: 2
+  showExplodeRadius: 1
+  explodeRadius: 4
+  explosionForce: 47.51
   once: 0
 --- !u!114 &4389304538904117662
 MonoBehaviour:
@@ -108,6 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 5
+  currLife: 0
+  damageMultiply: 0
   destroyOnDeath: 0
 --- !u!114 &1959329708169807516
 MonoBehaviour:
@@ -160,7 +150,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &5465412778250068145
 CapsuleCollider:
@@ -292,8 +282,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 2
+      scalar: 1.5
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1153,7 +1143,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 15
+        scalar: 50
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -4996,7 +4986,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a5c22c97ddaa01469e001b1f191b11c, type: 2}
+  - {fileID: 2100000, guid: db7d98b546798b94680e90d81a641340, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
