@@ -7,20 +7,18 @@ public class HealthBase : MonoBehaviour, IDamageable
 {
     public float maxLife = 5;
     public float currLife;
-    public float damageMultiply;
+    public float damageMultiply = 1;
     public bool destroyOnDeath;
 
     public Action onKill;
     public Action<HealthBase> onDamage;
 
-
-
-    void Awake()
+    void Start()
     {
         Init();
     }
 
-    void Init()
+    protected virtual void Init()
     {
         RestartLife();
     }
@@ -33,7 +31,7 @@ public class HealthBase : MonoBehaviour, IDamageable
     [NaughtyAttributes.Button]
     void Damage()
     {
-        TakeDamage(5);
+        TakeDamage(1);
     }
 
     protected virtual void Kill()

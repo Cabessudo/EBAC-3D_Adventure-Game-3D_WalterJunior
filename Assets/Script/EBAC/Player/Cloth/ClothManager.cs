@@ -9,7 +9,8 @@ namespace Cloth
     {
         SPEED, 
         STRONG,
-        STRENGTH
+        STRENGTH,
+        HEAT
     }
 
     public class ClothManager : Singleton<ClothManager>

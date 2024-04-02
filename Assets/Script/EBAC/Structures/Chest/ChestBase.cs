@@ -11,6 +11,7 @@ public class ChestBase : MonoBehaviour
 
     public ChestItemCoin coins;
     private bool _chestOpenned;
+    public bool locked = false;
 
     void Start()
     {
@@ -19,24 +20,24 @@ public class ChestBase : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(key) && !_chestOpenned && warn.activeSelf)
+        if(Input.GetKeyDown(key) && !_chestOpenned && warn.activeSelf && !locked)
             OpenChest(); 
     }
 
     void OnTriggerEnter()
     {
-        if(!_chestOpenned)
+        if(!_chestOpenned && !locked)
             ShowIcon();
     }
 
     void OnTriggerExit()
     {
-        if(!_chestOpenned)
+        if(!_chestOpenned && !locked)
             HideIcon();
     }
 
-    [NaughtyAttributes.Button]
-    void OpenChest()
+
+    protected virtual void OpenChest()
     {
         anim.SetTrigger(triggerOpen);
         _chestOpenned = true;
@@ -68,5 +69,4 @@ public class ChestBase : MonoBehaviour
         warn.SetActive(false);
     }
     #endregion
-
 }

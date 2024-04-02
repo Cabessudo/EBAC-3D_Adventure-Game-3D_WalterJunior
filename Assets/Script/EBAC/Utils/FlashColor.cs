@@ -24,7 +24,6 @@ public class FlashColor : MonoBehaviour
     [NaughtyAttributes.Button]
     public void Flash()
     {
-
         if(skinnedMeshRenderer != null && !_currTween.IsActive())
             _currTween = skinnedMeshRenderer.material.DOColor(_colorFlash, colorParameter, duration).SetLoops(2, LoopType.Yoyo);
 

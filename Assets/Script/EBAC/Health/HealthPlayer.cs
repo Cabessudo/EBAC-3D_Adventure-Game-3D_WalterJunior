@@ -7,10 +7,27 @@ public class HealthPlayer : HealthBase
     //UI
     public UIFillUpdater healthBar;
 
+    protected override void Init()
+    {
+        if(SaveManager.Instance.setup.playerHealth > 0)
+            currLife = SaveManager.Instance.setup.playerHealth;
+        else
+            RestartLife();
+            
+        UpdateUI();
+    }
+
+    [NaughtyAttributes.Button]
+    void DamagePlayer()
+    {
+        TakeDamage(1);
+    }
+
     public override void RestartLife()
     {
         base.RestartLife();
         UpdateUI();
+        SaveManager.Instance.SavePlayerHealth();
     }
 
     public override void TakeDamage(float damage)

@@ -13,21 +13,15 @@ namespace Items
         public Image itemImage;
         public TextMeshProUGUI itemAmount;
 
-        public void Load(ItemSetup setup)
+        public void GetItemSetup(ItemSetup setup)
         {
             _currSetup = setup;
         }
         
-        void UpadateUI()
+        public void UpadateUI()
         {
             itemImage.sprite = _currSetup.sprite;
             itemAmount.SetText(_currSetup.soInt.value.ToString());
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            UpadateUI();
         }
     }
 }

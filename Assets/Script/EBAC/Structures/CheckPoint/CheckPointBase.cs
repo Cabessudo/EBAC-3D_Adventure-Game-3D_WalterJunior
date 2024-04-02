@@ -13,9 +13,9 @@ public class CheckPointBase : MonoBehaviour
     {
         if(!checkpointActivated && other.gameObject.CompareTag("Player"))
         {
+            checkpointActivated = true;
             CheckCheckpoint();
             SaveCheckpoint();
-            checkpointActivated = true;
         }
     }
   

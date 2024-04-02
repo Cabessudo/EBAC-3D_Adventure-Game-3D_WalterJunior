@@ -18,6 +18,16 @@ namespace Items
         void Start()
         {
             Reset();
+            Invoke(nameof(GetSaveItems), .1f);
+        }
+
+        void GetSaveItems()
+        {
+            if(SaveManager.Instance.setup != null)
+            {
+                AddItemByType(ItemType.Coin, SaveManager.Instance.setup.coins);
+                AddItemByType(ItemType.LifePack, SaveManager.Instance.setup.lifePack);
+            }
         }
 
         void Reset()

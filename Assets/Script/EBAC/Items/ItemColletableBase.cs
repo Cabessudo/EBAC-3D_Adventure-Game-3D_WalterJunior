@@ -36,6 +36,7 @@ public class ItemColletableBase : MonoBehaviour
         if(mesh != null) mesh.enabled = false;
         if(itemCollider != null) itemCollider.enabled = false;
         ItemManager.Instance.AddItemByType(itemType);
+        ItemLayoutManager.Instance.itemLayouts.ForEach(i => i.UpadateUI());
         Destroy(gameObject, 1);
     }
 }

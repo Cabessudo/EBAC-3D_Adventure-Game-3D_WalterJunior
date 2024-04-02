@@ -27,8 +27,8 @@ public static class Utils
         return list[Random.Range(0, list.Count)];
     }
 
-    public static string PlayerTag()
+    public static string PlayerTag(this string playerTag)
     {
-        return "Player";
+        return playerTag = "Player";
     }
 }

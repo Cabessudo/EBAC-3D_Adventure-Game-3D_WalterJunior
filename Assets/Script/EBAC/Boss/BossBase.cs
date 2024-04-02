@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using Ebac.StateMachine;
 using DG.Tweening;
 
@@ -45,6 +46,10 @@ namespace Boss
 
         [Header("Boss Health")]
         public HealthBase bossHealth;
+        
+        [Header("Events")]
+        public Event onKill;
+        public UnityEvent killReward;
 
         [Header("Player References")]
         protected EbacPlayer _player;
@@ -197,6 +202,7 @@ namespace Boss
         void OnBossKill()
         {
             SwitchState(BossState.DEATH);
+            killReward?.Invoke();
             bossHealth.onKill -= OnBossKill;
         }
         #endregion

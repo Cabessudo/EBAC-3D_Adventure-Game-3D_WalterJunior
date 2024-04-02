@@ -362,6 +362,7 @@ Transform:
   - {fileID: 1683580586}
   - {fileID: 976179956}
   - {fileID: 622570408}
+  - {fileID: 161291383}
   m_Father: {fileID: 1035503510}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1011,6 +1012,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 389288316839002207, guid: 5530aaddfe55de5489d8221bbcb7b6c9, type: 3}
   m_PrefabInstance: {fileID: 160608415}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &161291382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 161291383}
+  - component: {fileID: 161291384}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &161291383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161291382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44733745}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &161291384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161291382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6652624cba348e42ab65739265124be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &170407204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3705,7 +3750,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676339061}
-  m_LocalRotation: {x: 0.105739765, y: -0.041387238, z: 0.0044048093, w: 0.99352247}
+  m_LocalRotation: {x: 0.10570566, y: -0.04847039, z: 0.005158663, w: 0.9932021}
   m_LocalPosition: {x: 75.77356, y: -272.26505, z: 27.939754}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4027,7 +4072,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725988047}
-  m_LocalRotation: {x: 0.22150733, y: -0.0000000083894784, z: 0.0000000019056698, w: 0.97515875}
+  m_LocalRotation: {x: 0.22150733, y: 0.000000008389475, z: -0.000000001905669, w: 0.97515875}
   m_LocalPosition: {x: 26.25415, y: 0.79473877, z: -38.320053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4751,7 +4796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabLayout: {fileID: 4311103153611657624, guid: 5d114641d7e4f1f41a7b0320afc8a9af, type: 3}
   container: {fileID: 827415085}
-  itenLayouts: []
+  itemLayouts: []
 --- !u!114 &827415087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10379,6 +10424,30 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1089369195060177689, guid: 32c0aacaa76b2944abb3ed6602126f44, type: 3}
   m_PrefabInstance: {fileID: 1740400768}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1742162804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7336076974915261568, guid: 5530aaddfe55de5489d8221bbcb7b6c9, type: 3}
+  m_PrefabInstance: {fileID: 336819018}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1742162805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742162804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd18cc274d31974ab3d5539daf56a9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 1742162807}
+  c: {r: 1, g: 0, b: 0, a: 1}
+--- !u!23 &1742162807 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4724807225995257782, guid: 5530aaddfe55de5489d8221bbcb7b6c9, type: 3}
+  m_PrefabInstance: {fileID: 336819018}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &1744867733 stripped
 Animator:

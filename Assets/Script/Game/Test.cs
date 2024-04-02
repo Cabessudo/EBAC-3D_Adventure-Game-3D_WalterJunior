@@ -1,20 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.Events;
 
 public class Test : MonoBehaviour
 {
-    public Transform waypoint;
-    public float turnSpeed = 10;
-    
-    void Update()
+    public UnityEvent onKill;
+
+    [NaughtyAttributes.Button]
+    public void Button()
     {
-        LookDir();
+        Destroy(gameObject);
     }
 
-    void LookDir()
+    public void OnDestroy()
     {
-        Vector3 lookDir = waypoint.position - new Vector3(transform.position.x, waypoint.position.y, transform.position.z);
-        transform.forward = Vector3.Slerp(transform.forward, lookDir.normalized, Time.deltaTime * turnSpeed);
+        onKill?.Invoke();
     }
 }
+
+/* Se Precisar
+namespace Level
+{
+    public enum LevelType
+    {
+        First,
+        Second,
+        Third
+    }
+
+    public class LevelManager : Singleton<LevelManager>
+    {
+        public List<LevelSetup> lvlSetup;
+
+        public LevelSetup GetLevelSetupByType(LevelType levelType)
+        {
+            return lvlSetup.Find(i => i.lvlType == levelType);
+        }
+
+        [System.Serializable]
+        public class LevelSetup
+        {
+            public LevelType lvlType;
+            public Texture leveltex;
+        }
+    }
+}
+*/

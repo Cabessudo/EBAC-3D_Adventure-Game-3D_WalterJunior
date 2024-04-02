@@ -7,6 +7,7 @@ using Cloth;
 public class EbacPlayer : Singleton<EbacPlayer>
 {
     public Rigidbody rb;
+    public Transform spawnPos;
     public CharacterController player;
     public Animator anim;
     public HealthPlayer playerHealth;
@@ -32,9 +33,16 @@ public class EbacPlayer : Singleton<EbacPlayer>
         OnValidate();
     }
 
+    void Start()
+    {
+        transform.position = spawnPos.position;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        FallFromTheWorld();
+
         //Rotation
         transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);
 
@@ -103,7 +111,7 @@ public class EbacPlayer : Singleton<EbacPlayer>
     #region  Life & Death
 
     [NaughtyAttributes.Button]
-    void Revive()
+    public void Revive()
     {
         playerHealth.RestartLife();
         SetHealthActions();
@@ -114,10 +122,12 @@ public class EbacPlayer : Singleton<EbacPlayer>
 
     void Respaw()
     {
-        if(CheckpointManager.Instance.CheckpointsCheck())
+        if(SaveManager.Instance.setup.checkPointPos != Vector3.zero)
         {
-            transform.position = CheckpointManager.Instance.GetLastCheckpointPos();
+            transform.position = SaveManager.Instance.setup.checkPointPos;
         }
+        else
+            transform.position = spawnPos.position;
     }
 
     void SetPlayerHealth()
@@ -153,6 +163,7 @@ public class EbacPlayer : Singleton<EbacPlayer>
 
         anim.SetTrigger("Death");
         _isAlive = false;
+        Invoke(nameof(Revive), 1);
 
         //Disable Colliders
         foreach(var colliders in transform.GetComponents<Collider>())
@@ -174,10 +185,25 @@ public class EbacPlayer : Singleton<EbacPlayer>
 
     #endregion
 
+    #region Checks
+    void FallFromTheWorld()
+    {
+        if(transform.position.y < -40)
+        {
+            Revive();
+        }
+    }
+    #endregion
+
     #region Cloth PowerUp
-    public void ChangeCloth(Texture tex, float time)
+    public void ChangePwupCloth(Texture tex, float time)
     {
         StartCoroutine(ChangeClothRoutine(tex, time));
+    }
+
+    public void ChangeCloth(Texture tex)
+    {
+        _cloths.ChangeCloth(tex);
     }
 
     IEnumerator ChangeClothRoutine(Texture currTex, float time)

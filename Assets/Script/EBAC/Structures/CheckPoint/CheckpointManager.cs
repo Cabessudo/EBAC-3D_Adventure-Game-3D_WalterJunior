@@ -8,6 +8,24 @@ public class CheckpointManager : Singleton<CheckpointManager>
     public int lastCheckpoint;
     public List<CheckPointBase> checkPoints;
 
+    void Start()
+    {
+        LoadCheckPoints();
+    }
+
+    void LoadCheckPoints()
+    {
+        var check = SaveManager.Instance.setup.checkPointPos;
+
+        for(int i = 0; i < checkPoints.Count; i++)
+        {
+            if(lastCheckpoint < checkPoints[i].checkpointKey)
+            {
+                lastCheckpoint = checkPoints[i].checkpointKey;
+            }
+        }
+    }
+
     public void SaveCheckpoint(int i)
     {
         if(i > lastCheckpoint)
@@ -17,6 +35,7 @@ public class CheckpointManager : Singleton<CheckpointManager>
     public void AddCheckpointToList(CheckPointBase currCheckpoint)
     {
         checkPoints.Add(currCheckpoint);
+        SaveManager.Instance.SaveCheckpoints(currCheckpoint.transform.position);
     }
 
     public Vector3 GetLastCheckpointPos()

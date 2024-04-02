@@ -67,7 +67,7 @@ MonoBehaviour:
   enemyCollider: {fileID: 1959329708169807488}
   flashColor: {fileID: 1959329708169807519}
   hurtPS: {fileID: 1959329709402733520}
-  enemyHealth: {fileID: 0}
+  enemyHealth: {fileID: 444234992546329363}
   enemyDamage: 1
   speed: 2
   turnSpeed: 5
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 5
   currLife: 0
-  damageMultiply: 0
+  damageMultiply: 1
   destroyOnDeath: 0
 --- !u!114 &1959329708169807519
 MonoBehaviour:
@@ -134,6 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 8924661403089693420}
   skinnedMeshRenderer: {fileID: 0}
+  _colorFlash: {r: 1, g: 0, b: 0, a: 1}
+  colorParameter: _EmissionColor
   duration: 0.1
 --- !u!54 &7919357419338954778
 Rigidbody:

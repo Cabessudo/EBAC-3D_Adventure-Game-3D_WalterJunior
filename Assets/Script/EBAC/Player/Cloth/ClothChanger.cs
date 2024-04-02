@@ -16,6 +16,17 @@ public class ClothChanger : MonoBehaviour
         _defaultTex = mesh[0].material.GetTexture(shaderIdName);
     }
 
+    void Start()
+    {
+        Invoke(nameof(Test), .5f);
+    }
+
+    void Test()
+    {
+        if(SaveManager.Instance.setup.playerCloth != null)
+            ChangeCloth(SaveManager.Instance.setup.playerCloth);
+    }
+
     public void ChangeCloth(Texture tex)
     {
         foreach(var m in mesh)
