@@ -10,6 +10,7 @@ using Cloth;
 public class SaveManager : Singleton<SaveManager>
 {
     private string _path;
+    private int clothsSelecteds;
     private SaveSetup _saveSetup;
     // public Action<SaveSetup> fileLoaded;
     public SaveSetup setup
@@ -22,8 +23,12 @@ public class SaveManager : Singleton<SaveManager>
         base.Awake();
         DontDestroyOnLoad(gameObject);
         Load();
-        // Invoke(nameof(Load), .1f)
+        Init();
+    }
 
+    void Init()
+    {
+        clothsSelecteds = setup.currCloths.Count;
     }
     
     public void SaveNextLevel(int lvl)
@@ -72,8 +77,11 @@ public class SaveManager : Singleton<SaveManager>
 
     public void SaveClothsSelexteds(ClothItemBase cloth)
     {
-        if(!_saveSetup.currCloths.Contains(cloth))
+        if(!_saveSetup.currCloths.Contains(cloth) && clothsSelecteds < 2)
+        {
             _saveSetup.currCloths.Add(cloth);
+            clothsSelecteds = setup.currCloths.Count;
+        }
 
         Save();
     }

@@ -26,6 +26,7 @@ namespace Cloth
             var setup = ClothManager.Instance.GetClothByType(clothType);
             Invoke(nameof(HideItem), .1f);
             OnCollect(setup.tex);
+            SaveManager.Instance.SaveClothCollected(this);
         }
 
         void OnCollect(Texture tex)

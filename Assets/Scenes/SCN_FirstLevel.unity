@@ -5067,7 +5067,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676339061}
-  m_LocalRotation: {x: 0.10278943, y: -0.014184035, z: 0.0014658832, w: 0.99460095}
+  m_LocalRotation: {x: 0.102789395, y: -0.014210407, z: 0.0014686087, w: 0.9946006}
   m_LocalPosition: {x: -60.196663, y: -0.3773446, z: 35.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6057,53 +6057,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 131520a856d1d9443b4eb208fbd627d5, type: 3}
---- !u!1 &871770591
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 871770593}
-  - component: {fileID: 871770592}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &871770592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871770591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 098b15eda11675940ab76e9b89512a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  guns: []
-  gunPos: {fileID: 0}
-  flash: {fileID: 0}
---- !u!4 &871770593
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871770591}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.699266, y: 4.8544745, z: 46.912548}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &902214852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8854619882081110099, guid: 6ace0503f5f5e6e44831975f9aeed05d, type: 3}
@@ -8022,6 +7975,21 @@ MonoBehaviour:
   destroyOnDeath: 0
   canHit: 1
   healthBar: {fileID: 103564455}
+--- !u!114 &1154980983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154980978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28426dcd71b6e2243a30633a425b86b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloths:
+  - {fileID: 8812113554431257045, guid: be2616704c2c41c448254d3552715587, type: 3}
+  - {fileID: 5136280016138027960, guid: e63f071d1549cb44b8a69f4b6664a09e, type: 3}
 --- !u!1001 &1158363756
 PrefabInstance:
   m_ObjectHideFlags: 0
