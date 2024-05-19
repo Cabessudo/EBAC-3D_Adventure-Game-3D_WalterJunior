@@ -3,35 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Anim
-{
-        public enum AnimType
-        {
-            NONE,
-            IDLE,
-            RUN,
-            JUMP,
-            LAND,
-            FALL,
-            ATTACK,
-            DEATH
-        }
-        
-    public class AnimationBase : MonoBehaviour
+{       
+    public class AnimationBase<T>: MonoBehaviour where T : System.Enum
     {
-
         public Animator anim;
-        public List<AnimationSetup> animSetups; 
+        public List<AnimationSetup> animSetups;
 
-        public void SetAnimByType(AnimType currAnimType)
+        public void SetAnimByType(T currAnimType)
         {
-            var setup = animSetups.Find(i => i.animType == currAnimType);
+            var setup = animSetups.Find(i => i.animType.ToString() == currAnimType.ToString());
             if(setup != null)
                 anim.SetTrigger(setup.animTrigger);
         }
         
-        public void SetAnimByType(AnimType currAnimType, bool b)
+        public void SetAnimByType(T currAnimType, bool b)
         {
-            var setup = animSetups.Find(i => i.animType == currAnimType);
+            var setup = animSetups.Find(i => i.animType.ToString() == currAnimType.ToString());
             if(setup != null)
                 anim.SetBool(setup.animTrigger, b);
         }
@@ -39,7 +26,7 @@ namespace Anim
         [System.Serializable]
         public class AnimationSetup
         {
-            public AnimType animType;
+            public T animType;
             public string animTrigger;
         }
     }

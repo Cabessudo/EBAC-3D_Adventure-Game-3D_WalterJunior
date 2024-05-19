@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HealthStructure : HealthBase
 {
+    //In this game this script is to the trees
     public MeshRenderer meshRenderer;
 
     protected override void Kill()

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6052555887067690427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6052555887067690426}
+  - component: {fileID: 6052555887067690309}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6052555887067690426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6052555887067690427}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6052555887067690309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6052555887067690427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca84cb90532ec4e49b14e77c87bc06ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSetup:
+  - type: 0
+    sfx: {fileID: 8300000, guid: 2a7ec87ac3513af4d92c428746f70079, type: 3}
+  - type: 1
+    sfx: {fileID: 8300000, guid: 0d396588673aee143af87d268d060ae3, type: 3}
+  - type: 2
+    sfx: {fileID: 8300000, guid: 3d45bc611ddc1ae4084956b6b9bd2d8f, type: 3}
+  - type: 3
+    sfx: {fileID: 8300000, guid: d771dce98e7619d41bef6afa162d19d2, type: 3}
+  - type: 4
+    sfx: {fileID: 8300000, guid: e52c5657d7a85cb44a7db4ef76aeac40, type: 3}
+  - type: 5
+    sfx: {fileID: 8300000, guid: 479a8561b69b88f4daed80d769571086, type: 3}
+  - type: 6
+    sfx: {fileID: 8300000, guid: 01627fa49ac160a468d522ff88403edc, type: 3}
+  - type: 7
+    sfx: {fileID: 8300000, guid: 316b0c4e38ceaa14d8dbb4dab6123723, type: 3}
+  - type: 8
+    sfx: {fileID: 8300000, guid: a962686c7e68ad843bf471ecb498e12c, type: 3}
+  - type: 9
+    sfx: {fileID: 8300000, guid: ea84b1316d244614385b236056bb549c, type: 3}

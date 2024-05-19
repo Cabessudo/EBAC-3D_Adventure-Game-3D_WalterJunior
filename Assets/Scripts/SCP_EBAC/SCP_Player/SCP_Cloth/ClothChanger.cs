@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Cloth;
 
 public class ClothChanger : MonoBehaviour
@@ -11,20 +12,13 @@ public class ClothChanger : MonoBehaviour
 
     private Texture _defaultTex;
 
+    [Header("UI")]
+    public Image playerHead;
+    public Sprite mainCloth;
+
     void Awake()
     {
         _defaultTex = mesh[0].material.GetTexture(shaderIdName);
-    }
-
-    void Start()
-    {
-        Invoke(nameof(Test), .5f);
-    }
-
-    void Test()
-    {
-        if(SaveManager.Instance.setup.playerCloth != null)
-            ChangeCloth(SaveManager.Instance.setup.playerCloth);
     }
 
     public void ChangeCloth(Texture tex)
@@ -41,6 +35,8 @@ public class ClothChanger : MonoBehaviour
         {
             m.material.SetTexture(shaderIdName, _defaultTex);
         }
+
+        playerHead.sprite = mainCloth;
     }
     
     [NaughtyAttributes.Button]

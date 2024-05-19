@@ -7,14 +7,19 @@ public class GroundCheck : MonoBehaviour
 {
     public bool grounded;
     public bool isFalling;
+    private bool once;
 
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerStay(Collider collision)
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            MyPlayer.Instance.anim?.SetAnimByType(AnimType.LAND);
-            grounded = true;
-            isFalling = true;
+            if(!once)
+            {
+                MyPlayer.Instance.anim?.SetAnimByType(AnimPlayerType.LAND);
+                grounded = true;
+                isFalling = true;
+                once = true;
+            }
         }
     }
 
@@ -23,6 +28,7 @@ public class GroundCheck : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             grounded = false;
+            once = false;
 
             if(!MyPlayer.Instance.isJumping)
                 isFalling = true;

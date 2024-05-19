@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 namespace Enemy
 {
@@ -10,18 +11,16 @@ namespace Enemy
         [Header("Bomb")]
         private Coroutine _currRoutine;
         //Variables
-        public bool _explode;
         public float timeToExplode = 2;
         public int explodeDamage = 5;
         public float gingle = 50;
         
         //Animation
-        public Ease ease = Ease.OutBack;
+        public Ease easeExplosion = Ease.OutBack;
         public float zAngleFloat = 10f;
         private Quaternion zAngle;
 
         //Explode
-        public MeshRenderer mesh;
         public float explodeSize = 1.5f;
         public float explodeDuration = 2;
         public bool playerOnRadius;
@@ -29,8 +28,6 @@ namespace Enemy
         public bool showExplodeRadius;
         public float explodeRadius;
         public float explosionForce = 2;
-
-        public bool once;
 
 
         protected override void Start()
@@ -41,82 +38,60 @@ namespace Enemy
         // Update is called once per frame
         protected override void Update()
         {
-            CheckPlayer();
             CheckExplosionRadious();
+            base.Update();            
 
-            if(playerDetected && !playerOnRadius && !_explode)
+            if(playerOnRadius && !attackState)
             {
-                LookPlayer();
-                transform.Translate(Vector3.forward * speed * Time.deltaTime);
-            }
-
-            if(playerOnRadius)
-            {
-                _currRoutine = StartCoroutine(ActiveRoutine());
+                SwitchAttack();
             }
             
+        }
+
+        public override void EnemyUpdate()
+        {
+            if(playerDetected && !playerOnRadius)
+            {
+                ChasePlayer();
+            }
+        }
+
+        public override IEnumerator AttackRoutine(Action action)
+        {   
+            anim.SetAnimByType(Anim.AnimEnemyType.ATTACK);
+            yield return new WaitForSeconds(timeToExplode);
+            ExplodeAnim();
+            yield return new WaitForSeconds(explodeDuration);
+            Explode();
         }
 
         #region Active
         IEnumerator ActiveRoutine()
         {
-            if(!_explode)
-            {
-                StartCoroutine(ActiveBombRoutine());
-                yield return new WaitForSeconds(timeToExplode);
-                _explode = true;
-            }
-            else if(_explode && !once)
-            {
-                StartCoroutine(ExplodeRoutine());
-                once = true;
-            }
-            
+            anim.SetAnimByType(Anim.AnimEnemyType.ATTACK);
+            yield return new WaitForSeconds(timeToExplode);
+            ExplodeAnim();
+            yield return new WaitForSeconds(explodeDuration);
+            Explode();
         }
 
-        IEnumerator ActiveBombRoutine()
-        {
-            while(true)
-            {
-                Active();
-                yield return new WaitForSeconds(.1f);
-                Active(-1);
-                yield return new WaitForSeconds(.1f);
-            }
-        }
-
-        void Active(int side = 1)
-        {  
-            zAngle =  Quaternion.Euler(transform.rotation.x, transform.rotation.y, zAngleFloat * side);
-            transform.rotation = Quaternion.Slerp(transform.rotation, zAngle, Time.deltaTime * gingle);
-        }
 
         #endregion
 
         #region Explode
-
-        IEnumerator ExplodeRoutine()
-        {
-            ExplodeAnim();
-            yield return new WaitForSeconds(explodeDuration);
-            Explode();
-            
-        }
-
         void ExplodeAnim()
         {
             //Explosion Animation
+            anim.SetAnimByType(Anim.AnimEnemyType.IDLE);
             var angle = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
             transform.rotation = Quaternion.Slerp(transform.rotation, angle, Time.deltaTime * gingle);
-            transform.DOScale(Vector3.one * explodeSize, explodeDuration).SetEase(ease);
-            mesh.material.DOColor(Color.white, "_EmissionColor", explodeDuration).SetEase(ease);
+            transform.DOScale(Vector3.one * explodeSize, explodeDuration).SetEase(easeExplosion);
+            mesh.material.DOColor(Color.white, "_EmissionColor", explodeDuration).SetEase(easeExplosion);
         }
 
-        void Explode()
+        public void Explode()
         {
-            mesh.enabled = false;
-            foreach(var sprites in transform.GetComponentsInChildren<SpriteRenderer>())
-                sprites.enabled = false;
+            Death();
 
             //Damage On Player
             if(playerOnRadius)

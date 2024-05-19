@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Texts;
 
 public class ChestBase : MonoBehaviour
 {
@@ -24,21 +25,22 @@ public class ChestBase : MonoBehaviour
             OpenChest(); 
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
-        if(!_chestOpenned && !locked)
+        if(!_chestOpenned && !locked && other.tag == "Player")
             ShowIcon();
     }
 
-    void OnTriggerExit()
+    void OnTriggerExit(Collider other)
     {
-        if(!_chestOpenned && !locked)
+        if(!_chestOpenned && !locked && other.tag == "Player")
             HideIcon();
     }
 
 
     protected virtual void OpenChest()
     {
+        PlayerUI.Instance?.PlayerUIAnim(Anim.AnimUIType.OPEN_CHEST);
         anim.SetTrigger(triggerOpen);
         _chestOpenned = true;
         Invoke(nameof(ShowItems), .5f);
@@ -62,6 +64,7 @@ public class ChestBase : MonoBehaviour
     void ShowIcon()
     {
         warn.SetActive(true);
+        TextManagerUI.Instance.SetTextByType(TextType.CHEST);
     }
 
     void HideIcon()

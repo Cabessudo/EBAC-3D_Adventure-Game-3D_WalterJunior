@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ebac.StateMachine;
+using Audio;
 
 namespace Boss
 {
@@ -9,32 +10,24 @@ namespace Boss
     public class BossStateBase : StateBase
     {
         protected BossBase boss;
-
-        public override void OnStateEnter(params object[] objs)
+        
+        public override void OnStateEnter(object obj)
         {
-            base.OnStateEnter(objs);
-            boss = (BossBase)objs[0];
+            boss = (BossBase)obj;
             Debug.Log("Booooosssss");
         }
-    }
 
-    public class BossInit : BossStateBase
-    {
-        public override void OnStateEnter(params object[] objs)
+        public override void OnStateExit()
         {
-            base.OnStateEnter(objs);
-            boss.AnimSpawn();
+            base.OnStateExit();
+            boss.StopAllCoroutines();
+            Debug.Log("Exit Boss");
         }
-    }
-
-    public class BossIdle : BossStateBase
-    {
-
     }
 
     public class BossWalk : BossStateBase
     {
-        public override void OnStateEnter(params object[] objs)
+        public override void OnStateEnter(object objs)
         {
             Debug.Log("Walk Enter");
             base.OnStateEnter(objs);
@@ -43,22 +36,15 @@ namespace Boss
             boss.atkState = false; 
         }
 
-        public override void OnStateStay(params object[] o)
+        public override void OnStateStay(object o)
         {
             base.OnStateStay(o);
             Debug.Log("WALK STAY");
             boss.LookWayPoint();
         }
 
-        public override void OnStateExit()
-        {
-            base.OnStateExit();
-            boss.StopAllCoroutines();
-        }
-
         private void Action()
         {
-            // boss.SwitchAttack();
             boss.walkState = false;
         }
 
@@ -66,7 +52,7 @@ namespace Boss
 
     public class BossAttack : BossStateBase
     {
-        public override void OnStateEnter(params object[] objs)
+        public override void OnStateEnter(object objs)
         {
             Debug.Log("Atk Enter");
             base.OnStateEnter(objs);
@@ -75,26 +61,24 @@ namespace Boss
             boss.atkState = true;
         }
 
-        public override void OnStateExit()
-        {
-            base.OnStateExit();
-            boss.StopAllCoroutines();
-        }
-
         private void Action()
         {
-            // boss.SwitchWalk();
+            boss.Stunned();
             boss.atkState = false;
+            boss.timeToAtk = 5;
         }
     }
 
     public class BossDeath : BossStateBase
     {
-        public override void OnStateEnter(params object[] objs)
+        public override void OnStateEnter(object objs)
         {
             base.OnStateEnter(objs);
-            boss.transform.localScale = Vector3.one * .2f;
-            boss.Death();
+            boss.bossHealth.Damage(boss.bossHealth.currLife);
+            //
+            if(boss.SFX_boss != null) SFXManager.Instance.SetAudioByType(Audio.SFXType.ENEMY_DEATH, boss.SFX_boss);
+            boss.bossHealthUI.SetActive(false); 
+            boss.PS_bossDamage.Emit(50);
             Debug.Log("Boss Death");
         }
     }

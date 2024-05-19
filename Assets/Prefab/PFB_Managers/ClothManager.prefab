@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9175303701245923325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9175303701245923314}
+  - component: {fileID: 9175303701245923315}
+  m_Layer: 0
+  m_Name: ClothManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9175303701245923314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9175303701245923325}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 73.51761, y: -273.0797, z: 41.99648}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9175303701245923315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9175303701245923325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50e5fc5251e89c4c8bcb774af35859d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clothSetups:
+  - type: 2
+    tex: {fileID: 2800000, guid: 7f282c49701ca2d4c825353bf93a7bf9, type: 3}
+    cloth: {fileID: 8812113554431257045, guid: be2616704c2c41c448254d3552715587, type: 3}
+    clothSprite: {fileID: 21300000, guid: 676d49e14da7fe7408941ef227960bec, type: 3}
+    headSprite: {fileID: 21300000, guid: efa21e792c5019547a1a95bf0bd0738b, type: 3}
+  - type: 3
+    tex: {fileID: 2800000, guid: 0aa4e2387c4a05d48b52e0df89c564c1, type: 3}
+    cloth: {fileID: 5136280016138027960, guid: e63f071d1549cb44b8a69f4b6664a09e, type: 3}
+    clothSprite: {fileID: 21300000, guid: a5102a7aef73ac44188755b01ccd6e1b, type: 3}
+    headSprite: {fileID: 21300000, guid: 08f76b70aff253947a15b8a909437213, type: 3}
+  - type: 4
+    tex: {fileID: 2800000, guid: 68b6167d8d765964ea57c04f920e1382, type: 3}
+    cloth: {fileID: 7028765894193703353, guid: 4e153b9d65fd07e4693b068eda4f5170, type: 3}
+    clothSprite: {fileID: 21300000, guid: 1649f8015fbc6f34daf888d2f6ada55a, type: 3}
+    headSprite: {fileID: 21300000, guid: 74192b81fa3d7f543b0ca8a32ac5f9a5, type: 3}
+  - type: 5
+    tex: {fileID: 2800000, guid: 0c4358027016b7a4fab09eefca4ca361, type: 3}
+    cloth: {fileID: 2460455221223804022, guid: 87b669cc08ff81d4b8c25502cf82b2c1, type: 3}
+    clothSprite: {fileID: 21300000, guid: 4867dafa4e54df04ca03c6b3a84d6f19, type: 3}
+    headSprite: {fileID: 21300000, guid: ca1b27e7655dc744e806a3e7cf726c01, type: 3}
+  - type: 0
+    tex: {fileID: 0}
+    cloth: {fileID: 0}
+    clothSprite: {fileID: 21300000, guid: 6503494bef41e584f8bd19fed53c0d71, type: 3}
+    headSprite: {fileID: 21300000, guid: f47c82a7125f51241b334a60fb22b7b7, type: 3}
+  - type: 1
+    tex: {fileID: 0}
+    cloth: {fileID: 0}
+    clothSprite: {fileID: 21300000, guid: 6503494bef41e584f8bd19fed53c0d71, type: 3}
+    headSprite: {fileID: 21300000, guid: f47c82a7125f51241b334a60fb22b7b7, type: 3}

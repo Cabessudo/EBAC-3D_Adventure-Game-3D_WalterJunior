@@ -7,7 +7,7 @@ using DG.Tweening;
 public class ImportantChest : ChestBase
 {
     public ParticleSystem particles;
-    public ClothItemBase cloth;
+    public ImportantItem importantItem;
     public Transform container;
 
     [Header("Spawn Anim")]
@@ -24,10 +24,10 @@ public class ImportantChest : ChestBase
 
     void SpawnItem()
     {
-        var item = Instantiate(cloth, transform);
+        var item = Instantiate(importantItem, container);
         item.transform.DOScale(0, duration).SetDelay(delay).SetEase(ease).From();
         item.transform.DOMoveY(y, duration).SetDelay(delay).SetEase(ease).SetRelative();
-        Invoke(nameof(CanCollect), 2);
+        StartCoroutine(CanCollect(item));
     }
 
     public void Unlocked()
@@ -39,8 +39,9 @@ public class ImportantChest : ChestBase
         }
     }
 
-    void CanCollect()
+    IEnumerator CanCollect(ImportantItem item)
     {
-        cloth.canCollect = true;
+        yield return new WaitForSeconds(duration + delay);
+        item.canCollect = true;
     }
 }

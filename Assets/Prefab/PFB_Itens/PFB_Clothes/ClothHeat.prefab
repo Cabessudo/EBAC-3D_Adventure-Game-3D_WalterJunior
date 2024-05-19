@@ -4824,7 +4824,7 @@ GameObject:
   - component: {fileID: 5136280016138027957}
   - component: {fileID: 5136280016138027958}
   - component: {fileID: 5136280016138027959}
-  - component: {fileID: 5136280016138027960}
+  - component: {fileID: 7028765894193703353}
   m_Layer: 0
   m_Name: ClothHeat
   m_TagString: Untagged
@@ -4912,7 +4912,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.3
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5136280016138027960
+--- !u!114 &7028765894193703353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4921,14 +4921,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5136280016138027961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15942ec47a4b5024ca32d87c66f64ae4, type: 3}
+  m_Script: {fileID: 11500000, guid: db536c9fa5756094d8ab75ae4cf4da61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clothType: 3
-  pwupCloth: 0
-  duration: 5
-  canCollect: 1
-  damageMultiply: 0.5
+  clothType: 4
+  duration: 7
 --- !u!1001 &5210941288821246813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4992,7 +4989,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_Astronaut Helmet
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7090333250446174465, guid: dad92437af0978248bb2ff030a3f3ef5, type: 3}
+    - {fileID: 1744867734, guid: dad92437af0978248bb2ff030a3f3ef5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dad92437af0978248bb2ff030a3f3ef5, type: 3}
 --- !u!4 &1143557301489957944 stripped
 Transform:

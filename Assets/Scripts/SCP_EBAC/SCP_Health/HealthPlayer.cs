@@ -15,6 +15,7 @@ public class HealthPlayer : HealthBase
             RestartLife();
             
         UpdateUI();
+        _rb = GetComponent<Rigidbody>();
     }
 
     [NaughtyAttributes.Button]
@@ -41,6 +42,7 @@ public class HealthPlayer : HealthBase
         if(healthBar != null) healthBar.UpdateValue((float)currLife / maxLife);
     }
 
+    #region Cloth PWUP
     public void ChangeDamage(float damageMultiply, float time)
     {
         StartCoroutine(ChangeDamageRoutine(damageMultiply, time));
@@ -52,4 +54,5 @@ public class HealthPlayer : HealthBase
         yield return new WaitForSeconds(time);
         this.damageMultiply = 1;
     }
+    #endregion
 }

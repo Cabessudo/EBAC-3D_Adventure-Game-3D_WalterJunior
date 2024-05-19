@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     public float jumpForce = 5;
 
     [Header("Animation")]
-    public AnimationBase anim;
+    // public AnimationBase anim;
     private Animator _anim;
 
     [Header("Grounded")]
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
         stateMachine.RegisterStates(PlayerStates.Walk, new PlayerWalkState());
         stateMachine.RegisterStates(PlayerStates.Jump, new PlayerJumpState());
 
-        stateMachine.SwitchState(PlayerStates.Idle);
+        stateMachine.SwitchState(PlayerStates.Idle, this);
     }
 
     void Update()
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
     {
         isJumping = true;
         _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        anim.SetAnimByType(AnimType.JUMP);
+        // anim.SetAnimByType(AnimType.JUMP);
     }
 
     #region  Checks
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
             //Animation Landing
             if(isJumping)
             {
-                anim.SetAnimByType(AnimType.LAND);
+                // anim.SetAnimByType(AnimType.LAND);
                 isJumping = false;
             }
         }
@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
             if(!isJumping)
             {
                 isJumping = true;
-                anim.SetAnimByType(AnimType.FALL);
+                // anim.SetAnimByType(AnimType.FALL);
             }
         }
     }

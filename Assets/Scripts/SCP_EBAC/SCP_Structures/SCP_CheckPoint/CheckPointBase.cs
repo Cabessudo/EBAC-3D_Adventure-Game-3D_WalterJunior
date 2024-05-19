@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Texts;
 
 public class CheckPointBase : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CheckPointBase : MonoBehaviour
             checkpointActivated = true;
             CheckCheckpoint();
             SaveCheckpoint();
+            TextManagerUI.Instance?.SetTextByType(TextType.CHECKPOINT);
         }
     }
   

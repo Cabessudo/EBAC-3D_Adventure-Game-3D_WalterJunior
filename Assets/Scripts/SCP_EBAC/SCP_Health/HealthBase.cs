@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using DG.Tweening;
 
 public class HealthBase : MonoBehaviour, IDamageable
 {
+    protected Rigidbody _rb;
     public float maxLife = 5;
     public float currLife;
     public float damageMultiply = 1;
@@ -22,6 +24,7 @@ public class HealthBase : MonoBehaviour, IDamageable
     protected virtual void Init()
     {
         RestartLife();
+        _rb = GetComponent<Rigidbody>();
     }
 
     public virtual void RestartLife()
@@ -38,7 +41,7 @@ public class HealthBase : MonoBehaviour, IDamageable
     protected virtual void Kill()
     {
         if(destroyOnDeath)
-            Destroy(gameObject, 1);
+            Destroy(gameObject, 2);
 
         onKill?.Invoke();
     }
@@ -68,5 +71,6 @@ public class HealthBase : MonoBehaviour, IDamageable
     public void Damage(float damage, Vector3 dir, float force)
     {
         Damage(damage); 
+        _rb?.AddForce(dir * force, ForceMode.Impulse);
     }
 }

@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Audio;
 
 public class GunBase : MonoBehaviour
 {
     [Header("Shoot Parameters")]
     public float shootSpeed;
     public float timeBtwShoots;
+    public float timeToShoot;
 
     [Header("Shoot")]
-    private Coroutine _currRoutine;
+    protected Coroutine _currRoutine;
     public GameObject shootObj;
     public Transform shootPos;
+    public AudioSource SFX_shoot;
     
     void Start()
     {
@@ -31,71 +35,40 @@ public class GunBase : MonoBehaviour
             projectile.speed = shootSpeed;
             projectile.DestroyShoot();
         }
+
+        if(SFX_shoot != null) SFXManager.Instance?.SetAudioByType(Audio.SFXType.PLAYER_GUN, SFX_shoot);
     }
 
-    protected virtual IEnumerator ShootRoutine()
+    protected virtual IEnumerator ShootRoutine(Action action)
     {
+        yield return new WaitForSeconds(timeToShoot);
         while(true)
         {
+            action?.Invoke();
             Shoot();
             yield return new WaitForSeconds(timeBtwShoots);
         }
     }
-
-    public void StartShoot()
+    public virtual void SFXShoot()
     {
-        StopShoot();
-        _currRoutine = StartCoroutine(ShootRoutine());
+        if(SFX_shoot != null) SFXManager.Instance?.SetAudioByType(Audio.SFXType.PLAYER_GUN, SFX_shoot);
     }
 
-    public void StopShoot()
+    public virtual void StartShoot(Action action = null)
+    {
+        StopShoot();
+        _currRoutine = StartCoroutine(ShootRoutine(action));
+        SFXShoot();
+    }
+
+    public virtual void StopShoot()
     {
         if(_currRoutine != null)
             StopCoroutine(_currRoutine);
     }
+
+    protected virtual void OnDestroy()
+    {
+        if(_currRoutine != null) StopCoroutine(_currRoutine);
+    }
 }
-
-//Old Shoot
-    // void PoolObjects()
-    // {
-    //     shoots = new List<GameObject>();
-
-    //     if(amountShoot > shootsLength)
-    //     {
-    //         for(int i = 0; i < amountShoot; i++)
-    //         {
-    //             var obj = (GameObject)Instantiate(shootObj);
-    //             shoots.Add(obj);
-    //             obj.SetActive(false);
-    //         }
-    //     }
-    // }
-
-    // protected virtual void Shoot()
-    // {
-    //     var shoot = GetShoot();
-    //     if(shoot != null)
-    //     {
-    //         shoot.SetActive(true);
-    //         shoot.transform.position = shootPos.position;
-    //         shoot.transform.rotation = shootPos.rotation;
-
-    //         var projectile = shoot.GetComponent<ProjectileBase>();
-    //         if(projectile != null)
-    //         {
-    //             projectile.shootBase = true;
-    //             projectile.speed = shootSpeed;
-    //             projectile.DestroyShoot();
-    //         }
-    //     }
-    // }
-    // public GameObject GetShoot()
-    // {
-    //     for(int i = 0; i < shoots.Count; i++)
-    //     {
-    //         if(!shoots[i].activeInHierarchy)
-    //             return shoots[i];
-    //     }
-
-    //     return null;
-    // }

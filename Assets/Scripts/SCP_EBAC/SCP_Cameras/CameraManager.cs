@@ -5,11 +5,44 @@ using Ebac.Singleton;
 
 public class CameraManager : Singleton<CameraManager>
 {
-    public GameObject mainCam;
+    [Header("Player CAM")]
+    public PlayerCam playerCam;
+    private KeyCode _aimInput = KeyCode.Mouse1;
 
+    [Header("Rocket CAM")]
+    public List<GameObject> mainCams;
     public float delay = 1;
     public float time;
 
+    void Start()
+    {
+        LockCursor();
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(_aimInput))
+        {
+            playerCam.aim = !playerCam.aim;
+            playerCam.SwitchCamera(playerCam.aim);
+        }
+    }
+
+    #region Player Cams
+
+    public void EnableAllCams()
+    {
+        mainCams.ForEach(i => i.SetActive(true));
+    }
+
+    public void DisableAllCams()
+    {
+        mainCams.ForEach(i => i.SetActive(false));
+    }
+
+    #endregion
+
+    #region Rocket
     [NaughtyAttributes.Button]
     public void FocusOnRocket()
     {
@@ -19,8 +52,23 @@ public class CameraManager : Singleton<CameraManager>
     IEnumerator FocusRoutine()
     {
         yield return new WaitForSeconds(delay);
-        mainCam.SetActive(false);
+        mainCams.ForEach(i => i.SetActive(false));
         yield return new WaitForSeconds(time);
-        mainCam.SetActive(true);
+        mainCams.ForEach(i => i.SetActive(true));
     }
+    #endregion
+
+    #region Cursor
+    void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    void FreeCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    #endregion
 }

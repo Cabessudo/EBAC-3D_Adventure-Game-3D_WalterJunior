@@ -5,8 +5,11 @@ using UnityEngine;
 public class ProjectileBase : MonoBehaviour
 {
     public float speed = 0;
-    public int amountDamage = 1;
+    public float amountDamage = 1;
     public string[] ignoreTag;
+    public string tagHit = "Enemy";
+    private bool once;
+
 
     protected virtual void Update()
     {
@@ -26,29 +29,50 @@ public class ProjectileBase : MonoBehaviour
     public IEnumerator DestroyRoutine(float time = 1)
     {
         yield return new WaitForSeconds(time);
-        transform.localPosition = Vector3.zero;
-        Destroy(gameObject, time);
+        Destroy(gameObject);
     }
     
     void OnCollisionEnter(Collision collision)
     {
-        foreach(var tags in ignoreTag)
+        if(collision.gameObject.CompareTag("Ground"))
         {
-            if(collision.gameObject.tag != tags)
-            {
-                var damageable = collision.gameObject.GetComponent<IDamageable>();
-                if(damageable != null)
-                {
-                    var dir = collision.transform.position - transform.position;
-                    dir = -dir.normalized;
-                    dir.y = 0;
-
-                    damageable.Damage(amountDamage, dir, 0); 
-                }
-            }
+            Destroy(gameObject);
         }
 
-        Destroy(gameObject);
+        if(collision.gameObject.tag == tagHit && !once)
+        {
+            var damageable = collision.gameObject.GetComponent<IDamageable>();
+            if(damageable != null)
+            {
+                var dir = collision.transform.position - transform.position;
+                dir = -dir.normalized;
+                dir.y = 0;
+
+                damageable.Damage(amountDamage, dir, 0); 
+            }
+
+            once = true;
+            Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == tagHit && !once)
+        {
+            var damageable = other.gameObject.GetComponent<IDamageable>();
+            if(damageable != null)
+            {
+                var dir = other.transform.position - transform.position;
+                dir = -dir.normalized;
+                dir.y = 0;
+
+                damageable.Damage(amountDamage, dir, 0); 
+            }
+
+            once = true;
+            Destroy(gameObject);
+        }
     }
 }
 

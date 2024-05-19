@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using Ebac.StateMachine;
 using DG.Tweening;
+using Anim;
+using Audio;
 
 namespace Boss
 {
     public enum BossState
     {
-        INIT,
-        IDLE,
         WALK,
         ATTACK,
         DEATH
@@ -20,7 +20,7 @@ namespace Boss
     public class BossBase : MonoBehaviour
     {
         [Header("States")]
-        private StateMachine<BossState> stateMachine;
+        protected StateMachine<BossState> stateMachine;
         public bool atkState;
         public bool walkState;
 
@@ -28,64 +28,45 @@ namespace Boss
         public List<Transform> waypoints;
         public float speed;
         public float turnSpeed = 12;
-        private int _index;
+        protected int _index;
 
-        [Header("Attack")]
-        public Transform bossShootPos;
-        public GameObject bossShoot;
-        public float shootHeight = 2;
+        [Header("Attack Variables")]
         public float timeToAtk = 1;
         public int attackTimes = 5;
         public float timeBtwAttack = .5f;
 
         [Header("Animation")]
-        private Ease easeSpawn = Ease.Linear;
-        public float durationSpawn = .2f;
+        [SerializeField] protected AnimationBase<AnimEnemyType> _bossAnim;
+        protected bool _idleAnim;
+        protected Ease ease = Ease.Linear;
+
         //Particles
-        public ParticleSystem bossParticle;
+        public ParticleSystem PS_bossDamage;
 
         [Header("Boss Health")]
+        public GameObject bossHealthUI;
         public HealthBase bossHealth;
-        
-        [Header("Events")]
-        public Event onKill;
-        public UnityEvent killReward;
+        public FlashColor bossFlashColor;
+        protected bool dead; 
 
+        [Header("SFX")]
+        public AudioSource SFX_boss;
+        
         [Header("Player References")]
-        protected MyPlayer _ebacPlayer;
         protected MyPlayer _player;
         public LayerMask playerMask;
         public bool playerDetected;
         public float radius;
         public float outOfRange = 20;
 
-        void Awake()
+        
+
+        protected virtual void Awake()
         {
             InitStates();
             SetHealthActions();
             SetPlayer();
         }
-
-        void Update()
-        {
-            CheckPlayer();
-            if(playerDetected && atkState)
-            {
-                ShootLookDir();
-                LookPlayer();
-            }
-            else if(playerDetected && !atkState)
-                SwitchAttack();
-
-            if(!playerDetected && !walkState)
-            {
-                SwitchWalk();
-            }
-            else if(!playerDetected && walkState)
-                LookWayPoint();
-
-        }
-
 
         #region  StateMachine
         void InitStates()
@@ -93,8 +74,6 @@ namespace Boss
             stateMachine = new StateMachine<BossState>();
             stateMachine.Init();
             
-            stateMachine.RegisterStates(BossState.INIT, new BossInit());
-            stateMachine.RegisterStates(BossState.IDLE, new BossIdle());
             stateMachine.RegisterStates(BossState.WALK, new BossWalk());
             stateMachine.RegisterStates(BossState.ATTACK, new BossAttack());
             stateMachine.RegisterStates(BossState.DEATH, new BossDeath());
@@ -110,12 +89,6 @@ namespace Boss
         #region  Debug
 
         [NaughtyAttributes.Button]
-        public void Spawn()
-        {
-            SwitchState(BossState.INIT);
-        }
-
-        [NaughtyAttributes.Button]
         public void SwitchWalk()
         {
             SwitchState(BossState.WALK);
@@ -126,18 +99,18 @@ namespace Boss
         {
             SwitchState(BossState.ATTACK);
         } 
-        #endregion
 
-        #region Animation
-        public void AnimSpawn()
+        [NaughtyAttributes.Button]
+        public void SwitchDeath()
         {
-            transform.DOScale(0, durationSpawn).SetEase(easeSpawn).From();
+            SwitchState(BossState.DEATH);
         }
         #endregion
 
         #region Walk
-        public void Walk(Action action = null)
+        public virtual void Walk(Action action = null)
         {
+            IdleAnim();
             var currIndex = UnityEngine.Random.Range(0, waypoints.Count);
             if(_index == currIndex) currIndex++;
 
@@ -145,6 +118,16 @@ namespace Boss
 
             _index = currIndex;
             StartCoroutine(WalkRoutine(waypoints[_index], action));
+        }
+
+        public void IdleAnim()
+        {
+            if(!_idleAnim)
+            {
+                _bossAnim.SetAnimByType(AnimEnemyType.IDLE);
+                _idleAnim = true;
+                bossHealth.canHit = false;
+            }
         }
 
         public void LookWayPoint()
@@ -167,73 +150,71 @@ namespace Boss
         #endregion
 
         #region Attack
-        public void Attack(Action action = null)
+        public virtual void Attack(Action action = null)
         {
             StartCoroutine(AttackRoutine(action));
         }
 
-        IEnumerator AttackRoutine(Action onAction)
+        public virtual IEnumerator AttackRoutine(Action onAction)
         {
-            yield return new WaitForSeconds(timeToAtk);
-
-            int atk = 0;
-            while(attackTimes > atk)
-            {
-                atk++;
-                transform.DOScale(1.2f, .1f).SetLoops(2, LoopType.Yoyo);
-                Shoot();
-                yield return new WaitForSeconds(timeBtwAttack);
-            }
-
-            onAction?.Invoke();
+            yield return null; 
         }
+
+        [NaughtyAttributes.Button]
+        public void Stunned()
+        {
+            _bossAnim.SetAnimByType(AnimEnemyType.STUNNED);
+            _idleAnim = false;
+            bossHealth.canHit = true;
+        }
+
         #endregion
 
         #region Life & Death
         void SetHealthActions()
         {
             bossHealth.onKill += OnBossKill;
+            bossHealth.onDamage += OnBossDamage;
         }
 
-        public void Death()
+        void OnBossDamage(HealthBase health)
         {
-            bossParticle.Emit(50);
+            if(bossFlashColor != null) bossFlashColor.Flash();
+            if(PS_bossDamage != null) PS_bossDamage.Play();
+            if(SFX_boss != null) SFXManager.Instance.SetAudioByType(Audio.SFXType.ENEMY_HURT, SFX_boss);
         }
 
         void OnBossKill()
         {
-            SwitchState(BossState.DEATH);
-            killReward?.Invoke();
+            SwitchDeath();
+            // if(SFX_boss != null) SFXManager.Instance.SetAudioByType(Audio.SFXType.ENEMY_HURT, SFX_boss);
+            dead = true;
+            _bossAnim.SetAnimByType(AnimEnemyType.DEATH);
+            // bossHealthUI.SetActive(false); 
+            // PS_bossDamage.Emit(50);
             bossHealth.onKill -= OnBossKill;
+            bossHealth.onDamage -= OnBossDamage;
         }
         #endregion
 
-        #region  BossShoot
-
-        void ShootLookDir()
-        {
-            Vector3 lookShootDir = _player.transform.position - new Vector3(transform.position.x, transform.position.y - shootHeight, transform.position.z);
-            bossShootPos.forward = Vector3.Slerp(bossShootPos.forward, lookShootDir.normalized, Time.deltaTime * turnSpeed);
-        }
-
-        void Shoot()
-        {
-            ShootLookDir();
-
-            Instantiate(bossShoot, bossShootPos.position, bossShootPos.rotation);
-        }
-        #endregion
+       
 
         #region Player
-        void CheckPlayer()
+        public void CheckPlayer()
         {
             var hit = Physics.OverlapSphere(transform.position, radius, playerMask);
 
             if(hit.Length > 0)
+            {
+                bossHealthUI.SetActive(true);
                 playerDetected = true;
+            }
 
             if(Vector3.Distance(_player.transform.position, transform.position) > outOfRange)
+            {
+                bossHealthUI?.SetActive(false);
                 playerDetected = false;
+            }
         }
 
         void OnDrawGizmosSelected()

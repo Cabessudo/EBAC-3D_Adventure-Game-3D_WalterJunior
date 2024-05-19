@@ -4924,11 +4924,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08ef451752ca3d43b3b7d27f0a996b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clothType: 0
-  pwupCloth: 1
-  duration: 5
-  canCollect: 1
-  clothSpeed: 50
+  clothType: 2
+  duration: 10
+  clothSpeed: 75
 --- !u!1001 &3545584727070495851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4996,7 +4994,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_Astronaut Helmet
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7090333250446174465, guid: dad92437af0978248bb2ff030a3f3ef5, type: 3}
+    - {fileID: 1744867734, guid: dad92437af0978248bb2ff030a3f3ef5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dad92437af0978248bb2ff030a3f3ef5, type: 3}
 --- !u!4 &8555206203638145806 stripped
 Transform:

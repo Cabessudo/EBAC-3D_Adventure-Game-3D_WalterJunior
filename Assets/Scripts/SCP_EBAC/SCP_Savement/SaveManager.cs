@@ -10,26 +10,34 @@ using Cloth;
 public class SaveManager : Singleton<SaveManager>
 {
     private string _path;
-    private int clothsSelecteds;
     private SaveSetup _saveSetup;
-    // public Action<SaveSetup> fileLoaded;
+    
     public SaveSetup setup
     {
         get{ return _saveSetup; }
     }
 
+    public ClothSetup firstCloth;
+    public ClothSetup secondCloth;
+
+    #region Start Game
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(gameObject);
         Load();
+    }
+
+    void Start()
+    {
         Init();
     }
 
-    void Init()
+    public void Init()
     {
-        clothsSelecteds = setup.currCloths.Count;
+        firstCloth = ClothManager.Instance.GetClothByType(_saveSetup.firstClothType);
+        secondCloth = ClothManager.Instance.GetClothByType(_saveSetup.secondClothType);
     }
+    #endregion
     
     public void SaveNextLevel(int lvl)
     {
@@ -38,27 +46,18 @@ public class SaveManager : Singleton<SaveManager>
         Save();
     }
 
-    public void SaveCloth(Texture tex)
-    {
-        _saveSetup.playerCloth = tex;
-        Save();
-    }
-
     public void SaveItems()
     {
-        if(_saveSetup.coins < ItemManager.Instance.GetItemByType(ItemType.Coin).soInt.value)
-            _saveSetup.coins = ItemManager.Instance.GetItemByType(ItemType.Coin).soInt.value;
+        if(ItemManager.Instance != null)
+        {
+            if(_saveSetup.coins < ItemManager.Instance.GetItemByType(ItemType.Coin).soInt.value)
+                _saveSetup.coins = ItemManager.Instance.GetItemByType(ItemType.Coin).soInt.value;
 
-        if(_saveSetup.lifePack < ItemManager.Instance.GetItemByType(ItemType.LifePack).soInt.value)    
-            _saveSetup.lifePack = ItemManager.Instance.GetItemByType(ItemType.LifePack).soInt.value;
+            if(_saveSetup.lifePack < ItemManager.Instance.GetItemByType(ItemType.LifePack).soInt.value)    
+                _saveSetup.lifePack = ItemManager.Instance.GetItemByType(ItemType.LifePack).soInt.value;
 
-        Save();
-    }
-
-    public void SavePlayerHealth()
-    {
-        _saveSetup.playerHealth = MyPlayer.Instance.health.currLife;
-        Save();
+            Save();
+        }
     }
 
     public void SaveCheckpoints(Vector3 checkpoint)
@@ -67,7 +66,31 @@ public class SaveManager : Singleton<SaveManager>
         Save();
     }
 
-    public void SaveClothCollected(ClothItemBase cloth)
+    public void SavePlayerHealth()
+    {
+        if(MyPlayer.Instance != null)
+        {
+            _saveSetup.playerHealth = MyPlayer.Instance.health.currLife;
+            Save();
+        }
+
+    }
+    #region Audio
+    public void SaveMusic(int currVolume)
+    {
+        _saveSetup.music = currVolume;
+        Save();
+    }
+
+    public void SaveSFX(int currVolume)
+    {
+        _saveSetup.sfx = currVolume;
+        Save();
+    }
+    #endregion
+
+    #region Cloths & Jetpack
+    public void SaveClothCollected(ClothType cloth)
     {
         if(!_saveSetup.clothsUnlockeds.Contains(cloth))
             _saveSetup.clothsUnlockeds.Add(cloth);
@@ -75,17 +98,38 @@ public class SaveManager : Singleton<SaveManager>
         Save();
     }
 
-    public void SaveClothsSelexteds(ClothItemBase cloth)
+
+    public void SaveFirstCloth(ClothSetup cloth)
     {
-        if(!_saveSetup.currCloths.Contains(cloth) && clothsSelecteds < 2)
+        if(firstCloth != cloth)
         {
-            _saveSetup.currCloths.Add(cloth);
-            clothsSelecteds = setup.currCloths.Count;
+            firstCloth = cloth;
+            _saveSetup.firstClothType = cloth.type;
+            Save();
+            Init();
         }
 
-        Save();
     }
 
+    public void SaveSecondCloth(ClothSetup cloth)
+    {
+        if(secondCloth != cloth)
+        {
+            secondCloth = cloth;
+            _saveSetup.secondClothType = cloth.type;
+            Save();
+            Init();
+        }
+    }
+
+    public void SaveJetpack()
+    {
+        _saveSetup.jetpackActive = true;
+        Save();
+    }
+    #endregion
+
+    #region Save & Load 
     public void SaveAll()
     {
         SavePlayerHealth();
@@ -100,11 +144,11 @@ public class SaveManager : Singleton<SaveManager>
         _saveSetup.levelUnlocked = 1;
         _saveSetup.coins = 0;
         _saveSetup.lifePack = 0;
-        _saveSetup.playerCloth = null;
         _saveSetup.playerHealth = 0;
         _saveSetup.checkPointPos = Vector3.zero;
-        _saveSetup.clothsUnlockeds.Clear();
-        _saveSetup.currCloths.Clear();
+        // _saveSetup.clothsUnlockeds.Clear();
+        _saveSetup.firstClothType = ClothType.NONE_First;
+        _saveSetup.secondClothType = ClothType.NONE_Second;
         Save();
     }
 
@@ -133,14 +177,14 @@ public class SaveManager : Singleton<SaveManager>
             CreateNewSave();
             Debug.Log("Creatre new save");
         }
-
-        // fileLoaded?.Invoke(_saveSetup);
     }
 
     void OnDestroy()
     {
         SaveAll();
     }
+
+    #endregion
 
     [System.Serializable]
     public class SaveSetup
@@ -156,12 +200,17 @@ public class SaveManager : Singleton<SaveManager>
         public int coins;
         public int lifePack;
 
-        //Cloth
-        public Texture playerCloth;
+        //Audio
+        public int music;
+        public int sfx;
 
-            //PWUPS
-            public List<ClothItemBase> clothsUnlockeds;
-            public List<ClothItemBase> currCloths;
+        //Cloth PWUPS
+        public List<ClothType> clothsUnlockeds;
+        public ClothType firstClothType;
+        public ClothType secondClothType;
+
+        //Jetpack
+        public bool jetpackActive;
 
         //Checkpoints
         public Vector3 checkPointPos;

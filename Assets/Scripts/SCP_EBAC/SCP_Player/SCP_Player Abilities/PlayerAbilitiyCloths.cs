@@ -5,21 +5,42 @@ using Cloth;
 
 public class PlayerAbilitiyCloths : PlayerAbilityBase
 {
-    public List<ClothItemBase> cloths;
-    private ClothItemBase _currCloth;
+    private ClothSetup _currFirstCloth;
+    private ClothSetup _currSecondCloth;
+    public PlayerUI playerUI;
 
     protected override void Init()
     {
         base.Init();
 
-        cloths = SaveManager.Instance.setup.currCloths;
-        inputs.Gameplay.ChangeToFirstCloth.performed += ctx => ActiveCloth();
-        inputs.Gameplay.ChangeToSecondCloth.performed += ctx => ActiveCloth(1);
+        _currFirstCloth = SaveManager.Instance.firstCloth;
+        _currSecondCloth = SaveManager.Instance.secondCloth;
+        inputs.Gameplay.ChangeToFirstCloth.performed += ctx => ActiveFirstCloth();
+        inputs.Gameplay.ChangeToSecondCloth.performed += ctx => ActiveSecondCloth();
     }
 
-    void ActiveCloth(int index = 0)
+    void ActiveFirstCloth()
     {
-        _currCloth = cloths[index];
-        _currCloth.ActivePWUP();
+        _currFirstCloth = SaveManager.Instance.firstCloth;
+
+        if(SaveManager.Instance.setup.firstClothType != ClothType.NONE_First && playerUI.firstClothFill.canUse && playerUI.canChangeCloth) 
+        {
+            _currFirstCloth.cloth.ChangePWUP(SaveManager.Instance.firstCloth.tex);
+            playerUI.CheckFirstCloth(true);
+            playerUI.ChangeMainCloth(SaveManager.Instance.firstCloth.headSprite);
+            Debug.Log(".,,,sada");
+        }
+    }
+    
+    void ActiveSecondCloth()
+    {
+        _currSecondCloth = SaveManager.Instance.secondCloth;
+
+        if(SaveManager.Instance.setup.secondClothType != ClothType.NONE_Second && playerUI.secondClothFill.canUse && playerUI.canChangeCloth) 
+        {
+            _currSecondCloth.cloth.ChangePWUP(SaveManager.Instance.secondCloth.tex);
+            playerUI.CheckFirstCloth(false);
+            playerUI.ChangeMainCloth(SaveManager.Instance.secondCloth.headSprite);
+        }
     }
 }

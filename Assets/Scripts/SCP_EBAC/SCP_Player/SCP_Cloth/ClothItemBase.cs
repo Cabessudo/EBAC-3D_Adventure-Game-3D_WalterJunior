@@ -7,14 +7,18 @@ namespace Cloth
     public class ClothItemBase : MonoBehaviour
     {
         public ClothType clothType;
-        private string playerTag = "Player";
-        public bool pwupCloth = true;
+        protected ClothSetup _clothSetup;
+        protected string playerTag = "Player";
         public float duration = 2;
-        public bool canCollect = true;
-        
+
+        void Start()
+        {
+            _clothSetup = ClothManager.Instance.GetClothByType(clothType);
+        }
+
         protected void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.CompareTag(playerTag) && canCollect)
+            if(other.gameObject.CompareTag(playerTag))
             {
                 Collect();
             }
@@ -23,23 +27,30 @@ namespace Cloth
         protected virtual void Collect()
         {
             Debug.Log("Cloth Collected: " + clothType.ToString());
-            var setup = ClothManager.Instance.GetClothByType(clothType);
             Invoke(nameof(HideItem), .1f);
-            OnCollect(setup.tex);
-            SaveManager.Instance.SaveClothCollected(this);
+            OnCollect();
+            ChangePWUP(_clothSetup.tex);
+        
+            SaveManager.Instance.SaveClothCollected(clothType);
         }
-
-        void OnCollect(Texture tex)
+        
+        void OnCollect()
         {
-            if(pwupCloth)
-                MyPlayer.Instance.ChangePwupCloth(tex, duration);
-            else
+            if(SaveManager.Instance.setup.secondClothType == ClothType.NONE_Second && SaveManager.Instance.setup.firstClothType != ClothType.NONE_First)
             {
-                MyPlayer.Instance.ChangeCloth(tex);
-                SaveManager.Instance.SaveCloth(tex);
-                LevelManager.Instance.NextLevel();
-                CameraManager.Instance.FocusOnRocket();
+                SaveManager.Instance.SaveSecondCloth(_clothSetup);
+                PlayerUI.Instance.CheckFirstCloth(false);
+                PlayerUI.Instance.GetSecondCloth();
             }
+
+            if(SaveManager.Instance.setup.firstClothType == ClothType.NONE_First)
+            {
+                SaveManager.Instance.SaveFirstCloth(_clothSetup);
+                PlayerUI.Instance.CheckFirstCloth(true);
+                PlayerUI.Instance.GetFirstCloth();
+            }
+
+            PlayerUI.Instance.ChangeMainCloth(_clothSetup.headSprite);            
         }
 
         void HideItem()
@@ -47,10 +58,14 @@ namespace Cloth
             gameObject.SetActive(false);
         }
 
-        public virtual void ActivePWUP()
+
+        public void ChangePWUP(Texture tex)
         {
-            var setup = ClothManager.Instance.GetClothByType(clothType);
-            MyPlayer.Instance.ChangePwupCloth(setup.tex, duration);
+            MyPlayer.Instance.ChangePwupCloth(tex, duration);
+            ActivePWUP();
         }
+
+        public virtual void ActivePWUP()
+        {}
     }
 }

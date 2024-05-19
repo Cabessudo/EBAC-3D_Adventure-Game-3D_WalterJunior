@@ -5,8 +5,10 @@ using Cloth;
 
 public class ClothItemHeat : ClothItemBase
 {
-    protected override void Collect()
+
+    public override void ActivePWUP()
     {
-        base.Collect();
+        base.ActivePWUP();
+        MyPlayer.Instance.Flamethrower(duration);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ebac.Singleton;
 using UnityEngine.SceneManagement;
+using Texts;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -32,7 +33,10 @@ public class LevelManager : Singleton<LevelManager>
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
+        {
             onRadious = true;
+            TextManagerUI.Instance.SetTextByType(TextType.ROCKET);
+        }
     }
 
     #region Rocket

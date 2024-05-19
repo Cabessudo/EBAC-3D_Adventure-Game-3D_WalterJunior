@@ -9,9 +9,11 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: MDL_ImportantChest_Material_AlbedoTransparency 1
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _METALLICGLOSSMAP
+  - _NORMALMAP
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -21,7 +23,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e7e0fe891f9dce447bcd6cd99ec6c1fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -45,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1d2a4663c1a1ccf469399c87ecc96946, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:

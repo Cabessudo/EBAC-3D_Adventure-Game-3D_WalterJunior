@@ -7,16 +7,19 @@ namespace Cloth
 {
     public enum ClothType
     {
+        NONE_First,
+        NONE_Second,
         SPEED, 
         STRONG,
-        STRENGTH,
-        HEAT
+        HEAT,
+        SHOOTGUN
     }
+
 
     public class ClothManager : Singleton<ClothManager>
     {
         public List<ClothSetup> clothSetups;
-
+        
         public ClothSetup GetClothByType(ClothType clothType)
         {
             return clothSetups.Find(i => i.type == clothType);
@@ -28,5 +31,8 @@ namespace Cloth
     {
         public ClothType type;
         public Texture2D tex;
+        public ClothItemBase cloth;
+        public Sprite clothSprite;
+        public Sprite headSprite;
     }
 }

@@ -10,7 +10,6 @@ public class MagnetTrigger : MonoBehaviour
         if(item != null && item.gameObject.AddComponent<Magnet>() == false)
         {
             item.gameObject.AddComponent<Magnet>();
-            Debug.Log("fffaaaf");
         }
     }
 }

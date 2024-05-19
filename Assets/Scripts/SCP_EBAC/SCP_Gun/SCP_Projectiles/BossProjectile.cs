@@ -6,7 +6,7 @@ using Boss;
 public class BossProjectile : ProjectileBase
 {
     public Rigidbody shootRb;
-    private Transform _player;
+    public Transform _player;
     public float minDis = 1;
     
     void Awake()

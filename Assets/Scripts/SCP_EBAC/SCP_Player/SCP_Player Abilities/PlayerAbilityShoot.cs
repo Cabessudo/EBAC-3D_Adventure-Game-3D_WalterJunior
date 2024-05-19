@@ -4,39 +4,49 @@ using UnityEngine;
 
 public class PlayerAbilityShoot : PlayerAbilityBase
 {
-    public List<GunBase> guns;
-    public Transform gunPos;
+    public List<GunBase> gunList;
+    public GunBase _currGun;
 
+    public Transform spawnPos; 
     public FlashColor flash;
 
-    private GunBase _currGun;
+    void Update()
+    {
+        if(MyPlayer.Instance.canChangeGun && MyPlayer.Instance.flamethrower)
+        {
+            GetGun(2);
+        }
+
+        if(MyPlayer.Instance.canChangeGun && MyPlayer.Instance.shotgun)
+        {
+            GetGun(1);
+        }
+
+        if(MyPlayer.Instance.canChangeGun && !MyPlayer.Instance.shotgun && !MyPlayer.Instance.flamethrower)
+        {
+            GetGun();
+        }
+    }
 
     protected override void Init()
     {
         base.Init();
-        GetGun();
 
         inputs.Gameplay.Shoot.performed += ctx => StartShoot();
         inputs.Gameplay.Shoot.canceled += ctx => StopShoot();
-
-        inputs.Gameplay.ChangeToFirstGun.performed += ctx => GetGun();
-        inputs.Gameplay.ChangeToSecondGun.performed += ctx => GetGun(1);
     }
 
-    private void GetGun(int i = 0)
+    void GetGun(int i = 0)
     {
-        if(_currGun != null && _currGun != guns[i]) Destroy(_currGun.gameObject);
+        if(_currGun != null) Destroy(_currGun.gameObject, .1f);
 
-        _currGun = Instantiate(guns[i], gunPos);
-        _currGun.transform.localPosition = Vector3.zero;
-
-        // _currGun.transform.localPosition = _currGun.transform.eulerAngles = Vector3.zero;
+        _currGun = Instantiate(gunList[i], spawnPos);
+        MyPlayer.Instance.canChangeGun = false;
     }
 
     private void StartShoot()
     {
-        _currGun.StartShoot();
-        flash?.Flash();
+        _currGun.StartShoot(flash.Flash);
         Debug.Log("Start Shoot");
     }
 

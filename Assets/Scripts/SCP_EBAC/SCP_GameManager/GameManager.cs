@@ -31,6 +31,6 @@ public class GameManager : Singleton<GameManager>
         stateMachine.RegisterStates(GameStates.Win, new StateBase());
         stateMachine.RegisterStates(GameStates.Lose, new StateBase());
 
-        stateMachine.SwitchState(GameStates.Intro);
+        stateMachine.SwitchState(GameStates.Intro, this);
     }
 }
