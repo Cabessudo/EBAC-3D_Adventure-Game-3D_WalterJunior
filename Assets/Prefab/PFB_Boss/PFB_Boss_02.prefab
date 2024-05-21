@@ -9863,9 +9863,10 @@ MonoBehaviour:
     m_Bits: 8
   playerDetected: 0
   radius: 50
+  radiusY: 5
   outOfRange: 40
   slam: 0
-  damage: 0.5
+  damage: 1.5
   VFX_Slam: {fileID: 1553028867}
   duration: 0.5
 --- !u!114 &4003859392629069591

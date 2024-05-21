@@ -12,19 +12,22 @@ public class PlayerAbilityShoot : PlayerAbilityBase
 
     void Update()
     {
-        if(MyPlayer.Instance.canChangeGun && MyPlayer.Instance.flamethrower)
+        if(MyPlayer.Instance.isAlive)
         {
-            GetGun(2);
-        }
+            if(MyPlayer.Instance.canChangeGun && MyPlayer.Instance.flamethrower)
+            {
+                GetGun(2);
+            }
 
-        if(MyPlayer.Instance.canChangeGun && MyPlayer.Instance.shotgun)
-        {
-            GetGun(1);
-        }
+            if(MyPlayer.Instance.canChangeGun && MyPlayer.Instance.shotgun)
+            {
+                GetGun(1);
+            }
 
-        if(MyPlayer.Instance.canChangeGun && !MyPlayer.Instance.shotgun && !MyPlayer.Instance.flamethrower)
-        {
-            GetGun();
+            if(MyPlayer.Instance.canChangeGun && !MyPlayer.Instance.shotgun && !MyPlayer.Instance.flamethrower)
+            {
+                GetGun();
+            }
         }
     }
 

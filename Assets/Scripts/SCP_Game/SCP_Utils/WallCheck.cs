@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallAndFloorCheck : MonoBehaviour
+public class WallCheck : MonoBehaviour
 {
     public bool check;
 

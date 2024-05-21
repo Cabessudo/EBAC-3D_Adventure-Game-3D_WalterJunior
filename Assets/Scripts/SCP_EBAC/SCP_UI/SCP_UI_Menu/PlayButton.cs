@@ -15,7 +15,6 @@ public class PlayButton : MonoBehaviour
     public GameObject rocketFlameAnim;
     public Ease ease;
     public float moveDuration = 1;
-
     public float rockectduration;
 
 

@@ -50,3 +50,5 @@ MonoBehaviour:
     text: Press 'E' To Open
   - type: 1
     text: Press 'B' To Back
+  - type: 3
+    text: CheckPoint Saved

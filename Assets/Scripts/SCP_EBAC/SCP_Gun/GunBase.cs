@@ -44,8 +44,8 @@ public class GunBase : MonoBehaviour
         yield return new WaitForSeconds(timeToShoot);
         while(true)
         {
-            action?.Invoke();
             Shoot();
+            action?.Invoke();
             yield return new WaitForSeconds(timeBtwShoots);
         }
     }

@@ -4933,7 +4933,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6370737887816365522}
-  m_LocalRotation: {x: 0, y: -0.99996644, z: 0, w: 0.0081942165}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 414.05637, y: -8.27, z: 65.615326}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4943,7 +4943,7 @@ Transform:
   - {fileID: 5231201676479502544}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -179.061, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6370737887816365524
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4982,7 +4982,7 @@ MonoBehaviour:
   turnSpeed: 5
   waypoint: []
   _index: 0
-  anim: {fileID: 0}
+  anim: {fileID: 7182790528906465239}
   spawnAnim_b: 1
   startAnimDuration: 0.2
   _player: {fileID: 0}
@@ -4990,7 +4990,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerDetected: 0
-  radius: 14.86
+  radius: 35
   enemyGun: {fileID: 688679907452074603}
 --- !u!114 &7182790528906465239
 MonoBehaviour:
@@ -5048,7 +5048,7 @@ MonoBehaviour:
   maxLife: 5
   currLife: 0
   damageMultiply: 1
-  destroyOnDeath: 0
+  destroyOnDeath: 1
   canHit: 1
 --- !u!54 &-3071377248296368890
 Rigidbody:
@@ -5064,7 +5064,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!82 &-1479499602358703399
 AudioSource:
@@ -5262,8 +5262,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 6370737887816365513}
     m_Modifications:
     - target: {fileID: -2271362928338339418, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
+      propertyPath: timeToShoot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2271362928338339418, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: timeBtwShoots
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2408343864444902173, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: m_RootOrder
@@ -5313,7 +5317,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_EnemyGun
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5670103560203639261, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
+    - {fileID: 6060859899752203482, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
 --- !u!114 &688679907452074603 stripped
 MonoBehaviour:

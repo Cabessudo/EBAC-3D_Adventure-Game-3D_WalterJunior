@@ -5060,7 +5060,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6812213553719704961}
-  m_LocalRotation: {x: 0, y: -0.99996644, z: 0, w: 0.0081942165}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 72.010254, y: 3.8344874, z: 159.04706}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5071,7 +5071,7 @@ Transform:
   - {fileID: 60168230}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -179.061, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3582029269755803622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5089,11 +5089,14 @@ MonoBehaviour:
   hurtPS: {fileID: 6812213552453320919}
   mesh: {fileID: 4495704711382979051}
   SFX_enemy: {fileID: -139777135958405066}
+  walkState: 0
+  attackState: 0
   enemyHealth: {fileID: 4869247168084510740}
   enemyDamage: 1
   speed: 5
   turnSpeed: 5
   waypoint: []
+  _index: 0
   anim: {fileID: 4611769359953241426}
   spawnAnim_b: 1
   startAnimDuration: 1
@@ -5182,7 +5185,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!65 &6812213553719704967
 BoxCollider:
@@ -5306,11 +5309,11 @@ PrefabInstance:
       objectReference: {fileID: 7312143092999304452, guid: 5d31aede3f7ba4f429888de348a14911, type: 3}
     - target: {fileID: -2271362928338339418, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: timeToShoot
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -2271362928338339418, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: timeBtwShoots
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2408343864444902173, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: m_RootOrder
@@ -5322,7 +5325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2408343864444902173, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8
+      value: 2.78
       objectReference: {fileID: 0}
     - target: {fileID: 2408343864444902173, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: m_LocalPosition.z

@@ -72,11 +72,14 @@ MonoBehaviour:
   hurtPS: {fileID: 3843325271629180220}
   mesh: {fileID: 200891214872154107}
   SFX_enemy: {fileID: 7018821883543251239}
+  walkState: 0
+  attackState: 0
   enemyHealth: {fileID: 5777722443796865631}
   enemyDamage: 1
   speed: 5
   turnSpeed: 100
   waypoint: []
+  _index: 0
   anim: {fileID: 4320723470505034345}
   spawnAnim_b: 1
   startAnimDuration: 1
@@ -87,9 +90,9 @@ MonoBehaviour:
   playerDetected: 0
   radius: 50
   enemyGun: {fileID: 8025085135730074318}
-  wallAndFloorCheck: {fileID: 2179414112006196595}
-  timeToTurn: 1
-  timeStop: 2
+  wallCheck: {fileID: 5955039146220727333}
+  moveDuration: 5
+  stopTime: 2
   patrolDuration: 1
   closeToPlayer: 0
   _minDis: 25
@@ -148,7 +151,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &5777722443796865631
 MonoBehaviour:
@@ -165,7 +168,7 @@ MonoBehaviour:
   maxLife: 10
   currLife: 0
   damageMultiply: 1
-  destroyOnDeath: 0
+  destroyOnDeath: 1
   canHit: 1
 --- !u!82 &7018821883543251239
 AudioSource:
@@ -5175,8 +5178,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8741383603598880275}
-  - component: {fileID: 2179414112006196595}
   - component: {fileID: 8665259661235869997}
+  - component: {fileID: 5955039146220727333}
   m_Layer: 0
   m_Name: WallAndFloorCheck
   m_TagString: Untagged
@@ -5199,19 +5202,6 @@ Transform:
   m_Father: {fileID: 3843325271242241593}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2179414112006196595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6170572018101630447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6545d4c789d60de4dacce5c0bd914879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  check: 0
 --- !u!65 &8665259661235869997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5225,6 +5215,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 7, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5955039146220727333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170572018101630447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18ed54bb1248894d88ced0f6c520bac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  check: 0
 --- !u!1001 &1091185141831932776
 PrefabInstance:
   m_ObjectHideFlags: 0

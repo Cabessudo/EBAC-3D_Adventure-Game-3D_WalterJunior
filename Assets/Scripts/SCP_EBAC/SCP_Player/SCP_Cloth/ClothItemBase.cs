@@ -20,6 +20,8 @@ namespace Cloth
         {
             if(other.gameObject.CompareTag(playerTag))
             {
+                var player = other.gameObject.GetComponent<MyPlayer>();
+                player?.StopAllCoroutines();
                 Collect();
             }
         }

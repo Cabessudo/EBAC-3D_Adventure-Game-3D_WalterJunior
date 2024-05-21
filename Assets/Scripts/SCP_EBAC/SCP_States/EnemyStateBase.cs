@@ -37,7 +37,6 @@ public class EnemyWalkState : EnemyStateBase
     public override void OnStateStay(object o)
     {
         base.OnStateStay(o);
-        // _enemy.LookDir();
     }
 
     //To EnemyBase Cause Movement to Waypoints

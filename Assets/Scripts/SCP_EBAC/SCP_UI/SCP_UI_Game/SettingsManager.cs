@@ -14,6 +14,7 @@ public class SettingsManager : MonoBehaviour
     public GameObject mainBackground;
     public List<GameObject> backgroundSettings;
     private bool showedSettings;
+    public bool menu = false;
 
     void Update()
     {
@@ -83,15 +84,18 @@ public class SettingsManager : MonoBehaviour
 
     void LockCursor()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        Time.timeScale = 1;
+        if(!menu)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1;
+        }
     }
 
     void FreeCursor()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Time.timeScale = 0;
+        if(!menu) Time.timeScale = 0;
     }
 }

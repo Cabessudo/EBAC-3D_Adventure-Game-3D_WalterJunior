@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  amountDamage: 1
+  amountDamage: 2
   ignoreTag:
   - Enemy
   - Shoot

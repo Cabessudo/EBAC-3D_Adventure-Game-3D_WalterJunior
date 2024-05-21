@@ -30,8 +30,6 @@ namespace Boss
                 {
                     SwitchWalk();
                 }
-                else if(!playerDetected && walkState)
-                    LookWayPoint();
             }
         }
 
@@ -44,6 +42,7 @@ namespace Boss
             int atk = 0;
             while(attackTimes > atk)
             {
+                _bossAnim.SetAnimByType(Anim.AnimEnemyType.ATTACK);
                 atk++;
                 transform.DOScale(1.2f, .1f).SetLoops(2, LoopType.Yoyo);
                 Shoot();

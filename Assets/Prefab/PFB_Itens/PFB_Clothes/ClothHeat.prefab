@@ -4925,7 +4925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clothType: 4
-  duration: 7
+  duration: 10
 --- !u!1001 &5210941288821246813
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,7 +9,6 @@ namespace Enemy
     public class EnemyBomb : EnemyBase
     {
         [Header("Bomb")]
-        private Coroutine _currRoutine;
         //Variables
         public float timeToExplode = 2;
         public int explodeDamage = 5;
@@ -17,8 +16,6 @@ namespace Enemy
         
         //Animation
         public Ease easeExplosion = Ease.OutBack;
-        public float zAngleFloat = 10f;
-        private Quaternion zAngle;
 
         //Explode
         public float explodeSize = 1.5f;
@@ -29,19 +26,12 @@ namespace Enemy
         public float explodeRadius;
         public float explosionForce = 2;
 
-
-        protected override void Start()
-        {
-            base.Start();
-        }
-
         // Update is called once per frame
         protected override void Update()
         {
-            CheckExplosionRadious();
             base.Update();            
 
-            if(playerOnRadius && !attackState)
+            if(playerDetected && !attackState)
             {
                 SwitchAttack();
             }
@@ -50,13 +40,21 @@ namespace Enemy
 
         public override void EnemyUpdate()
         {
-            if(playerDetected && !playerOnRadius)
+            CheckExplosionRadious();
+
+            if(attackState && !playerOnRadius)
             {
                 ChasePlayer();
             }
+
+            if(playerOnRadius && attackState)
+            {
+                StartCoroutine(ExplodeRoutine());
+            }
+
         }
 
-        public override IEnumerator AttackRoutine(Action action)
+        public IEnumerator ExplodeRoutine()
         {   
             anim.SetAnimByType(Anim.AnimEnemyType.ATTACK);
             yield return new WaitForSeconds(timeToExplode);
@@ -66,14 +64,14 @@ namespace Enemy
         }
 
         #region Active
-        IEnumerator ActiveRoutine()
-        {
-            anim.SetAnimByType(Anim.AnimEnemyType.ATTACK);
-            yield return new WaitForSeconds(timeToExplode);
-            ExplodeAnim();
-            yield return new WaitForSeconds(explodeDuration);
-            Explode();
-        }
+        // IEnumerator ActiveRoutine()
+        // {
+        //     anim.SetAnimByType(Anim.AnimEnemyType.ATTACK);
+        //     yield return new WaitForSeconds(timeToExplode);
+        //     ExplodeAnim();
+        //     yield return new WaitForSeconds(explodeDuration);
+        //     Explode();
+        // }
 
 
         #endregion
@@ -83,8 +81,8 @@ namespace Enemy
         {
             //Explosion Animation
             anim.SetAnimByType(Anim.AnimEnemyType.IDLE);
-            var angle = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, angle, Time.deltaTime * gingle);
+            // var angle = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
+            // transform.rotation = Quaternion.Slerp(transform.rotation, angle, Time.deltaTime * gingle);
             transform.DOScale(Vector3.one * explodeSize, explodeDuration).SetEase(easeExplosion);
             mesh.material.DOColor(Color.white, "_EmissionColor", explodeDuration).SetEase(easeExplosion);
         }

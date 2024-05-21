@@ -22,9 +22,11 @@ public class ImportantChest : ChestBase
         SpawnItem();
     }
 
+    [NaughtyAttributes.Button]
     void SpawnItem()
     {
         var item = Instantiate(importantItem, container);
+        item.transform.localPosition = Vector3.zero;
         item.transform.DOScale(0, duration).SetDelay(delay).SetEase(ease).From();
         item.transform.DOMoveY(y, duration).SetDelay(delay).SetEase(ease).SetRelative();
         StartCoroutine(CanCollect(item));

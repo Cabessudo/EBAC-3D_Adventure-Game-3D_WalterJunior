@@ -41,7 +41,7 @@ namespace Enemy
         [Header("Waypoint")]
         public List<Transform> waypoint;
         public int _index;
-        protected float _minDistance = .5f;
+        protected float _minDistance = 1;
         
         [Header("Animation")]
         [SerializeField] protected AnimationEnemy anim;
@@ -182,10 +182,10 @@ namespace Enemy
             _index++;
             if(_index >= waypoint.Count) _index = 0;
 
-            var pos = new Vector3(waypoint[_index].position.x, 0, waypoint[_index].position.z);
-            while(Vector3.Distance(transform.position, pos) > _minDistance)
+            var pos = new Vector3(waypoint[_index].position.x, transform.position.y, waypoint[_index].position.z);
+            while(Vector3.Distance(transform.position, waypoint[_index].position) > _minDistance)
             {
-                LookDir(pos);
+                LookDir();
                 transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
                 yield return new WaitForEndOfFrame();
             }
@@ -194,23 +194,23 @@ namespace Enemy
             action?.Invoke();
         }
 
-        public void LookDir(Vector3 v)
+        public void LookDir()
         {
                 var lookDir = waypoint[_index].position - new Vector3(transform.position.x, waypoint[_index].position.y, transform.position.z);
-                transform.forward = Vector3.Slerp(transform.forward, v.normalized, Time.deltaTime * turnSpeed);
+                transform.forward = Vector3.Slerp(transform.forward, lookDir.normalized, Time.deltaTime * turnSpeed);
         }
         #endregion
 
         #region Attack
         public virtual void Attack(Action action = null)
         {
-            StartCoroutine(AttackRoutine(action));
+            StartCoroutine(ExplodeRoutine(action));
         }
 
         public virtual void ActionAttack()
         {}
 
-        public virtual IEnumerator AttackRoutine(Action action)
+        public virtual IEnumerator ExplodeRoutine(Action action)
         {
             yield return new WaitForSeconds(1);
             action?.Invoke();

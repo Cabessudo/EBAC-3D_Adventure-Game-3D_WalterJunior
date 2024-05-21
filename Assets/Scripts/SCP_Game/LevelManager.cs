@@ -32,7 +32,7 @@ public class LevelManager : Singleton<LevelManager>
     
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Player") && warn.activeSelf)
         {
             onRadious = true;
             TextManagerUI.Instance.SetTextByType(TextType.ROCKET);

@@ -10,6 +10,7 @@ public class MyPlayer : Singleton<MyPlayer>
     [Header("Movement")]
     private Rigidbody _rb;
     public Transform orientation;
+    public float defaultSpeed = 25;
     public float speed = 10;
     public float dragForce = 5;
     public bool walk; 
@@ -43,6 +44,9 @@ public class MyPlayer : Singleton<MyPlayer>
     [Header("Player UI")]
     public PlayerUI playerUI;
 
+    [Header("Player Cam")]
+    public PlayerCam playerCam;
+
     [Header("VFX")]
     public ParticleSystem VFX_Dust;
 
@@ -72,7 +76,7 @@ public class MyPlayer : Singleton<MyPlayer>
     // Update is called once per frame
     void Update()
     {
-        if(isAlive)
+        if(isAlive && Time.timeScale != 0)
         {
             Checks();
             Movement();
@@ -124,6 +128,7 @@ public class MyPlayer : Singleton<MyPlayer>
         MovementCheck();   
         GroundCheck();
         FallFromTheWorldCheck();
+        CheckVelocity();
     }
 
 
@@ -172,6 +177,16 @@ public class MyPlayer : Singleton<MyPlayer>
             walk = false;
     }
 
+    void CheckVelocity()
+    {
+        var vel = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+        if(vel.magnitude > speed)
+        {
+            var flatVel = speed * vel.normalized;
+            _rb.velocity = new Vector3(flatVel.x, _rb.velocity.y, flatVel.z);
+        }
+    }
+
     public void ActiveJetpackCheck()
     {
         _jetpack.gameObject.SetActive(true);
@@ -193,7 +208,7 @@ public class MyPlayer : Singleton<MyPlayer>
         SetHealthActions();
         health.RestartLife();
         anim?.SetAnimByType(AnimPlayerType.IDLE);
-        CameraManager.Instance.EnableAllCams();
+        playerCam?.EnabledAllCams();
     }
 
     void Respawn()
@@ -230,7 +245,7 @@ public class MyPlayer : Singleton<MyPlayer>
         health.onDamage -= OnDamagePlayer;
         health.onKill -= OnKillPlayer;
 
-        CameraManager.Instance.DisableAllCams();
+        playerCam?.DisableAllCams();
         health.canHit = false;
         anim?.SetAnimByType(AnimPlayerType.DEATH);
         isAlive = false;
@@ -270,7 +285,6 @@ public class MyPlayer : Singleton<MyPlayer>
 
     IEnumerator ChangeSpeedRoutine(float currSpeed, float time)
     {
-        var defaultSpeed = speed;
         speed = currSpeed;
         yield return new WaitForSeconds(time);
         speed = defaultSpeed;   

@@ -59,11 +59,14 @@ MonoBehaviour:
   hurtPS: {fileID: 3437306003609432126}
   mesh: {fileID: 7554140497815723948}
   SFX_enemy: {fileID: -228230725483857397}
+  walkState: 0
+  attackState: 0
   enemyHealth: {fileID: 3993114331142040467}
   enemyDamage: 1
   speed: 5
   turnSpeed: 5
   waypoint: []
+  _index: 0
   anim: {fileID: 612533483682389606}
   spawnAnim_b: 1
   startAnimDuration: 1
@@ -74,9 +77,9 @@ MonoBehaviour:
   playerDetected: 0
   radius: 50
   enemyGun: {fileID: 8567020814867913160}
-  wallAndFloorCheck: {fileID: 3119418934872670315}
-  timeToTurn: 1
-  timeStop: 2
+  wallCheck: {fileID: 7116185177499800788}
+  moveDuration: 5
+  stopTime: 2
   patrolDuration: 1
   closeToPlayer: 0
   _minDis: 30
@@ -119,7 +122,7 @@ MonoBehaviour:
   maxLife: 5
   currLife: 0
   damageMultiply: 1
-  destroyOnDeath: 0
+  destroyOnDeath: 1
   canHit: 1
 --- !u!114 &3437306002920366767
 MonoBehaviour:
@@ -165,7 +168,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!82 &-228230725483857397
 AudioSource:
@@ -5175,10 +5178,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5681524227180333687}
-  - component: {fileID: 3119418934872670315}
   - component: {fileID: 7405976310345326890}
+  - component: {fileID: 7116185177499800788}
   m_Layer: 0
-  m_Name: WallAndFloorCheck
+  m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5192,26 +5195,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7029733689007831606}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.414612, y: 1.4119978, z: 10}
+  m_LocalPosition: {x: 0, y: 1.4119978, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3437306002920366755}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3119418934872670315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7029733689007831606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6545d4c789d60de4dacce5c0bd914879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  check: 0
 --- !u!65 &7405976310345326890
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5223,8 +5213,21 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 6, z: 1}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7116185177499800788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7029733689007831606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18ed54bb1248894d88ced0f6c520bac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  check: 0
 --- !u!1001 &1629831898235838574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5238,11 +5241,11 @@ PrefabInstance:
       objectReference: {fileID: 7312143092999304452, guid: 1ca5e27d12012c2489c3c0c817e2c8cc, type: 3}
     - target: {fileID: -2271362928338339418, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: timeToShoot
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -2271362928338339418, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: timeBtwShoots
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2408343864444902173, guid: 322f8da3bb1c6ee448ded5443dd7491d, type: 3}
       propertyPath: m_RootOrder

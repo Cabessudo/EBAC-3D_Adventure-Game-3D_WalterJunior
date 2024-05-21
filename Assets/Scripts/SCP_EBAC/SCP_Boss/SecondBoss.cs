@@ -42,8 +42,6 @@ namespace Boss
                 {
                     SwitchWalk();
                 }
-                else if(!playerDetected && walkState)
-                    LookWayPoint();
             }
 
         }

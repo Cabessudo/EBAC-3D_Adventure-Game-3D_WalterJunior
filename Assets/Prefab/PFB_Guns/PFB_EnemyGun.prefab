@@ -98,9 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootSpeed: 50
-  timeBtwShoots: 0.2
+  timeBtwShoots: 1
+  timeToShoot: 1
   shootObj: {fileID: 7312143092999304452, guid: 60abd6825d73c9640ba3f15e2a253bf6, type: 3}
   shootPos: {fileID: 8956300416564514036}
+  SFX_shoot: {fileID: 0}
 --- !u!1 &7685813114831847863
 GameObject:
   m_ObjectHideFlags: 0

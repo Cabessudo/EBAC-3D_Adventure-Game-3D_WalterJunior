@@ -13,7 +13,7 @@ public class GroundCheck : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            if(!once)
+            if(!once && MyPlayer.Instance.isAlive)
             {
                 MyPlayer.Instance.anim?.SetAnimByType(AnimPlayerType.LAND);
                 grounded = true;

@@ -36,7 +36,7 @@ namespace Boss
         public float timeBtwAttack = .5f;
 
         [Header("Animation")]
-        [SerializeField] protected AnimationBase<AnimEnemyType> _bossAnim;
+        public AnimationBase<AnimEnemyType> _bossAnim;
         protected bool _idleAnim;
         protected Ease ease = Ease.Linear;
 
@@ -57,6 +57,7 @@ namespace Boss
         public LayerMask playerMask;
         public bool playerDetected;
         public float radius;
+        public float radiusY = 5;
         public float outOfRange = 20;
 
         
@@ -115,9 +116,10 @@ namespace Boss
             if(_index == currIndex) currIndex++;
 
             if(currIndex >= waypoints.Count) currIndex = 0;
-
             _index = currIndex;
-            StartCoroutine(WalkRoutine(waypoints[_index], action));
+
+            var pos = new Vector3(waypoints[_index].position.x, transform.position.y, waypoints[_index].position.z);
+            StartCoroutine(WalkRoutine(pos, action));
         }
 
         public void IdleAnim()
@@ -136,11 +138,12 @@ namespace Boss
             transform.forward = Vector3.Slerp(transform.forward, lookWayPointDir.normalized, Time.deltaTime * turnSpeed);
         }
 
-        IEnumerator WalkRoutine(Transform t, Action onAction)
+        IEnumerator WalkRoutine(Vector3 v, Action onAction)
         {
-            while(Vector3.Distance(transform.position, t.position) > .1f)
+            while(Vector3.Distance(transform.position, v) > .1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, t.position, Time.deltaTime * speed);
+                LookWayPoint();
+                transform.position = Vector3.MoveTowards(transform.position, v, Time.deltaTime * speed);
                 yield return new WaitForEndOfFrame();
             }
 
@@ -202,7 +205,7 @@ namespace Boss
         #region Player
         public void CheckPlayer()
         {
-            var hit = Physics.OverlapSphere(transform.position, radius, playerMask);
+            var hit = Physics.OverlapSphere(new Vector3(transform.position.x, radiusY, transform.position.z), radius, playerMask);
 
             if(hit.Length > 0)
             {
@@ -219,7 +222,7 @@ namespace Boss
 
         void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireSphere(transform.position, radius);
+            Gizmos.DrawWireSphere(new Vector3(transform.position.x, radiusY, transform.position.z), radius);
         }
 
         public void LookPlayer()

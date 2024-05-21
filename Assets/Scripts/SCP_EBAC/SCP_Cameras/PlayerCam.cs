@@ -22,7 +22,7 @@ public class PlayerCam : MonoBehaviour
             PlayerOrientation();
 
         if(aim)    
-            AimOrientation();
+            AimOrientation();  
     }
 
     void PlayerOrientation()
@@ -64,9 +64,15 @@ public class PlayerCam : MonoBehaviour
         }
     }
 
-    void DisableAllCams()
+    public void DisableAllCams()
     {
         defaultCam.enabled = false;
         aimCam.enabled = false;
+    }
+
+    public void EnabledAllCams()
+    {
+        defaultCam.enabled = true;
+        aimCam.enabled = true;
     }
 }
