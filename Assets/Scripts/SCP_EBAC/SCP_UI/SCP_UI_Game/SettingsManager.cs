@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #if UNITY_EDITOR
-using UnityEditor;
+    using UnityEditor;
 #endif
 
 public class SettingsManager : MonoBehaviour
@@ -76,9 +76,9 @@ public class SettingsManager : MonoBehaviour
     public void Quit()
     {
         #if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
+            EditorApplication.ExitPlaymode();
         #else
-        Editor.Quit();
+            Application.Quit();
         #endif
     }
 

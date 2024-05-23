@@ -10,20 +10,20 @@ public class LoadScene : MonoBehaviour
 
     public void LoadLevel()
     {
-        if(SaveManager.Instance.setup.levelUnlocked >= phaseLvl)
+        if(SaveManager.Instance?.setup.levelUnlocked >= phaseLvl)
         {
             SceneManager.LoadScene(phaseLvl);
             Debug.Log("Loading...");
         }
         else
-        Debug.Log("Level Locked");
+            TextManagerUI.Instance?.SetTextByType(TextType.PLANET_LOCKED);
     }
 
     public void LastPlanetNotFinished()
     {
         if(SaveManager.Instance.setup.levelUnlocked >= phaseLvl)
-            TextManagerUI.Instance.SetTextByType(TextType.LAST_PLANET);
+            TextManagerUI.Instance?.SetTextByType(TextType.LAST_PLANET);
         else
-            Debug.Log("Level Locked");
+            TextManagerUI.Instance?.SetTextByType(TextType.PLANET_LOCKED);
     }
 }

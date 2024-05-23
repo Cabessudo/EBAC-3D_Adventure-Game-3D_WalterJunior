@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using Texts;
 using Cloth;
 
 public class ClothsUIItems : ClothsUIBase, IPointerEnterHandler, IPointerExitHandler
@@ -66,6 +67,10 @@ public class ClothsUIItems : ClothsUIBase, IPointerEnterHandler, IPointerExitHan
             Debug.Log(".");
         }
 
+        if(!unlocked)
+        {
+            TextManagerUI.Instance?.SetTextByType(TextType.CLOTH_LOCKED);
+        }
     }
 
     bool ClothEqual()

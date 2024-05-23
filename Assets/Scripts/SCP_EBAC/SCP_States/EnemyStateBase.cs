@@ -64,6 +64,5 @@ public class EnemyAttackState : EnemyStateBase
     {
         base.OnStateStay(o);
         _enemy.EnemyUpdate();
-        Debug.Log(".");
     }
 }

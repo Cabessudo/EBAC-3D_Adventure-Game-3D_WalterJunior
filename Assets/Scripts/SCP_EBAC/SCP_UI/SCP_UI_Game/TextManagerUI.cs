@@ -12,7 +12,9 @@ namespace Texts
         CHEST,
         ROCKET,
         LAST_PLANET,
-        CHECKPOINT
+        CHECKPOINT,
+        PLANET_LOCKED,
+        CLOTH_LOCKED
     }
 
     public class TextManagerUI : Singleton<TextManagerUI>
