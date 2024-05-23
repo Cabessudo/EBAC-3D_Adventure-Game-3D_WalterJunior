@@ -18,11 +18,14 @@ public class PlayerCam : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!aim)
-            PlayerOrientation();
+        if(MyPlayer.Instance.isAlive)
+        {
+            if(!aim)
+                PlayerOrientation();
 
-        if(aim)    
-            AimOrientation();  
+            if(aim)    
+                AimOrientation();  
+        }
     }
 
     void PlayerOrientation()

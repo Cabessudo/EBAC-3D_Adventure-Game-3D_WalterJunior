@@ -19474,8 +19474,8 @@ MonoBehaviour:
   - {fileID: 1852404528}
   - {fileID: 1581466663399537399}
   - {fileID: 2738029599211932240}
-  velocity: 7
-  duration: 5
+  velocity: 17
+  duration: 2.5
   _currDuration: 0
   isOn: 0
 --- !u!82 &3102457748334958538

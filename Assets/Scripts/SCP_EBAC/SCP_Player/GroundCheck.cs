@@ -30,7 +30,7 @@ public class GroundCheck : MonoBehaviour
             grounded = false;
             once = false;
 
-            if(!MyPlayer.Instance.isJumping)
+            if(!MyPlayer.Instance.isJumping && MyPlayer.Instance.isAlive)
                 isFalling = true;
         }
     }

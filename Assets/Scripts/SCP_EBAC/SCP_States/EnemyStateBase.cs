@@ -20,6 +20,7 @@ public class EnemyStateBase : StateBase
         _enemy.StopAllCoroutines();
         _enemy.walkState = false;
         _enemy.attackState = false;
+        _enemy.ExitState();
         Debug.Log("Enemy Exit");
     }
 }

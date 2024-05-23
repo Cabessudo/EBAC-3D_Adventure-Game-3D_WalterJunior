@@ -31,6 +31,9 @@ public class EnemyDig : EnemyBase
         {
             SwitchAttack();
         }
+
+        if(_digged && !playerDetected)
+            DigAttack();
     }
 
     public override void EnemyUpdate()
@@ -44,6 +47,11 @@ public class EnemyDig : EnemyBase
         {
             DigAttack();
         }
+    }
+
+    public override void ExitState()
+    {
+        if(_digged) DigAttack();
     }
 
     #region Attack

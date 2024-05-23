@@ -55,10 +55,11 @@ namespace Enemy
         }
 
 
-        public override void Death()
+        public override void OnDeath()
         {
-            base.Death();
+            enemyGun?.StopAllCoroutines();
             enemyGun?.StopShoot();
+            base.OnDeath();
         }
     }
 }

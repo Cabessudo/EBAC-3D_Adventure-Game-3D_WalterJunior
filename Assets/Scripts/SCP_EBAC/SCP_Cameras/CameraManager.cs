@@ -21,7 +21,7 @@ public class CameraManager : Singleton<CameraManager>
 
     void Update()
     {
-        if(Input.GetKeyDown(_aimInput))
+        if(Input.GetKeyDown(_aimInput) && MyPlayer.Instance.isAlive)
         {
             playerCam.aim = !playerCam.aim;
             playerCam.SwitchCamera(playerCam.aim);

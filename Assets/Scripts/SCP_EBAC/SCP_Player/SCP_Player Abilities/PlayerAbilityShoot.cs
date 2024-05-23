@@ -12,7 +12,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
 
     void Update()
     {
-        if(MyPlayer.Instance.isAlive)
+        if(player.isAlive)
         {
             if(MyPlayer.Instance.canChangeGun && MyPlayer.Instance.flamethrower)
             {
@@ -28,6 +28,10 @@ public class PlayerAbilityShoot : PlayerAbilityBase
             {
                 GetGun();
             }
+        }
+        else
+        {
+            _currGun.StopShoot();
         }
     }
 
@@ -49,13 +53,18 @@ public class PlayerAbilityShoot : PlayerAbilityBase
 
     private void StartShoot()
     {
-        _currGun.StartShoot(flash.Flash);
-        Debug.Log("Start Shoot");
+        if(player.isAlive) 
+        {
+            _currGun.StartShoot(flash.Flash);
+            Debug.Log("Start Shoot");
+        }
     }
 
     private void StopShoot()
     {
+
         Debug.Log("Stop Shoot");
         _currGun.StopShoot();
+
     }
 }

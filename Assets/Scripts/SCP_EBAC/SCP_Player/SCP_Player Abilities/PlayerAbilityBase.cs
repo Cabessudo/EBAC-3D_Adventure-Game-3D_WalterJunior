@@ -11,7 +11,7 @@ public class PlayerAbilityBase : MonoBehaviour
 
     private void OnValidate()
     {
-        if(player == null) GetComponent<MyPlayer>();
+        if(player == null) player = GetComponent<MyPlayer>();
     }
 
     void Start()

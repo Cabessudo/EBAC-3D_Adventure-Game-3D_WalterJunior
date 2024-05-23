@@ -93,7 +93,7 @@ public class MyPlayer : Singleton<MyPlayer>
     {
         Vector3 movementDir = orientation.forward * _vt + orientation.right * _ht;
 
-        if(movementDir != Vector3.zero)
+        if(movementDir != Vector3.zero && isAlive)
         {
             _rb.AddForce(movementDir.normalized * speed, ForceMode.Force);
         }
@@ -242,14 +242,13 @@ public class MyPlayer : Singleton<MyPlayer>
 
     void OnKillPlayer()
     {
-        health.onDamage -= OnDamagePlayer;
-        health.onKill -= OnKillPlayer;
-
         playerCam?.DisableAllCams();
         health.canHit = false;
         anim?.SetAnimByType(AnimPlayerType.DEATH);
         isAlive = false;
         Invoke(nameof(Revive), 3);
+        health.onDamage -= OnDamagePlayer;
+        health.onKill -= OnKillPlayer;
     }
     #endregion
 

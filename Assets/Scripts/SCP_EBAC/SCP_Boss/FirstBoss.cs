@@ -42,6 +42,7 @@ namespace Boss
             int atk = 0;
             while(attackTimes > atk)
             {
+                _idleAnim = false;
                 _bossAnim.SetAnimByType(Anim.AnimEnemyType.ATTACK);
                 atk++;
                 transform.DOScale(1.2f, .1f).SetLoops(2, LoopType.Yoyo);

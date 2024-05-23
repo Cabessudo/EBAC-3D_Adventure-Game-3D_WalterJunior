@@ -113,6 +113,9 @@ namespace Enemy
         {
             stateMachine.SwitchState(EnemyState.ATTACK, this);
         }
+
+        public virtual void ExitState()
+        {}
         #endregion
 
         #region Life and Death
@@ -134,12 +137,19 @@ namespace Enemy
 
         protected virtual void OnEnemyKill()
         {
+            OnDeath();
             Invoke(nameof(Death), 1);
+            if(stateMachine.currState != null) stateMachine.currState.OnStateExit();
             SetAnimByType(AnimEnemyType.DEATH);
             if(SFX_enemy != null) SFXManager.Instance.SetAudioByType(Audio.SFXType.ENEMY_DEATH, SFX_enemy);
             dead = true;
             enemyHealth.onKill -= OnEnemyKill;
             enemyHealth.onDamage -= OnEnemyDamage;
+        }
+
+        public virtual void OnDeath()
+        {
+
         }
 
         public virtual void Death()
