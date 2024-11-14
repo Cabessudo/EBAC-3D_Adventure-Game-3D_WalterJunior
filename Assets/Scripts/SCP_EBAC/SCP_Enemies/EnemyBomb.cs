@@ -12,12 +12,12 @@ namespace Enemy
         //Variables
         public float timeToExplode = 2;
         public int explodeDamage = 5;
-        public float gingle = 50;
         
         //Animation
         public Ease easeExplosion = Ease.OutBack;
 
         //Explode
+        public bool exploding;
         public float explodeSize = 1.5f;
         public float explodeDuration = 2;
         public bool playerOnRadius;
@@ -29,6 +29,8 @@ namespace Enemy
         // Update is called once per frame
         protected override void Update()
         {
+            if(exploding) return;
+
             base.Update();            
 
             if(playerDetected && !attackState)
@@ -59,32 +61,18 @@ namespace Enemy
             anim.SetAnimByType(Anim.AnimEnemyType.ATTACK);
             yield return new WaitForSeconds(timeToExplode);
             ExplodeAnim();
-            yield return new WaitForSeconds(explodeDuration);
-            Explode();
         }
-
-        #region Active
-        // IEnumerator ActiveRoutine()
-        // {
-        //     anim.SetAnimByType(Anim.AnimEnemyType.ATTACK);
-        //     yield return new WaitForSeconds(timeToExplode);
-        //     ExplodeAnim();
-        //     yield return new WaitForSeconds(explodeDuration);
-        //     Explode();
-        // }
-
-
-        #endregion
 
         #region Explode
         void ExplodeAnim()
         {
             //Explosion Animation
+            exploding = true;
             anim.SetAnimByType(Anim.AnimEnemyType.IDLE);
-            // var angle = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
-            // transform.rotation = Quaternion.Slerp(transform.rotation, angle, Time.deltaTime * gingle);
             transform.DOScale(Vector3.one * explodeSize, explodeDuration).SetEase(easeExplosion);
-            mesh.material.DOColor(Color.white, "_EmissionColor", explodeDuration).SetEase(easeExplosion);
+            mesh.material.DOColor(Color.white, "_EmissionColor", explodeDuration).SetEase(easeExplosion).OnComplete(
+                delegate{Explode();}
+            );
         }
 
         public void Explode()
@@ -99,7 +87,7 @@ namespace Enemy
                 _player.health.Damage(explodeDamage, dir.normalized, explosionForce);
             }
             
-            if(hurtPS != null) hurtPS.Emit(100);
+            if(hurtPS != null) hurtPS.Play();
             Destroy(gameObject, 1);
         }
 

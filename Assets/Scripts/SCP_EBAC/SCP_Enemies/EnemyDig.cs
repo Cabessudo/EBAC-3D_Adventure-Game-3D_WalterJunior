@@ -62,7 +62,6 @@ public class EnemyDig : EnemyBase
 
     IEnumerator AttackPlayerRoutine()
     {
-        yield return new WaitForSeconds(timeToAttack);
         Dig();
         yield return new WaitForSeconds(chaseTime);
         DigAttack();
@@ -71,7 +70,7 @@ public class EnemyDig : EnemyBase
     [NaughtyAttributes.Button]
     void Dig()
     {
-        transform.DOLocalMoveY(digDepth, digDuration).SetEase(easeDig).SetRelative().OnComplete(
+        transform.DOLocalMoveY(digDepth, digDuration).SetDelay(timeToAttack).SetEase(easeDig).SetRelative().OnComplete(
             delegate
             {
                 PS_moveDig.Play();

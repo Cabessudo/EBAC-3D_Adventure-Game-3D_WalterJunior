@@ -53,7 +53,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
 
     private void StartShoot()
     {
-        if(player.isAlive) 
+        if(player.isAlive && !PauseManager.Instance.pause) 
         {
             _currGun.StartShoot(flash.Flash);
             Debug.Log("Start Shoot");

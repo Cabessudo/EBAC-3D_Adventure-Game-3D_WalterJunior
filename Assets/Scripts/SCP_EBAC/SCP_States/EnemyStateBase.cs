@@ -21,7 +21,7 @@ public class EnemyStateBase : StateBase
         _enemy.walkState = false;
         _enemy.attackState = false;
         _enemy.ExitState();
-        Debug.Log("Enemy Exit");
+        // Debug.Log("Enemy Exit");
     }
 }
 
@@ -32,7 +32,7 @@ public class EnemyWalkState : EnemyStateBase
         base.OnStateEnter(o);
         _enemy.Movement(Action);
         _enemy.walkState = true;
-        Debug.Log("Enemy Walk Enter");
+        // Debug.Log("Enemy Walk Enter");
     }
 
     public override void OnStateStay(object o)

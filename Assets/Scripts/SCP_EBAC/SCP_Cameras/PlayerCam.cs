@@ -13,7 +13,6 @@ public class PlayerCam : MonoBehaviour
     [Header("Cam")]
     public CinemachineFreeLook defaultCam;
     public CinemachineFreeLook aimCam;
-    public GameObject aimImage;
     public bool aim;
 
     void FixedUpdate()
@@ -58,12 +57,10 @@ public class PlayerCam : MonoBehaviour
         if(!b)
         {
             defaultCam.enabled = true;
-            aimImage.SetActive(b);
         }
         else
         {
             aimCam.enabled = true;
-            aimImage.SetActive(b);
         }
     }
 

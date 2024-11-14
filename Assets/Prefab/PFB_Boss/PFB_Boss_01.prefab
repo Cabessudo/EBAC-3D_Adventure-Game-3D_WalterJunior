@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704318793054447687}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.6700001, z: 0}
-  m_LocalScale: {x: 2.25, y: 2.2500002, z: 2.25}
+  m_LocalPosition: {x: 0, y: 1.86, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1704318794783634243}
@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704318793054447687}
   serializedVersion: 8
-  lengthInSec: 3
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -116,8 +116,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 2
+      scalar: 1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -662,7 +662,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 49.43
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -748,7 +748,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 3.4
       mode: 0
       spread: 0
       speed:
@@ -977,7 +977,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 50
+        scalar: 15
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -4820,7 +4820,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d7193e2fc9249884d97bd1b3a03afa7c, type: 2}
+  - {fileID: 2100000, guid: b77c78f0258309148b5849fcf30a1dea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4964,10 +4964,10 @@ MonoBehaviour:
   - {fileID: 0}
   speed: 5
   turnSpeed: 99
-  timeToAtk: 1
+  timeToAtk: 2
   attackTimes: 5
-  timeBtwAttack: 0.5
-  _bossAnim: {fileID: 0}
+  timeBtwAttack: 0.9
+  _bossAnim: {fileID: 7478986028824273395}
   PS_bossDamage: {fileID: 1704318793054447686}
   bossHealthUI: {fileID: 0}
   bossHealth: {fileID: 4716486320526351213}
@@ -4977,8 +4977,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerDetected: 0
-  radius: 25
-  outOfRange: 20
+  radius: 35
+  radiusY: 13
+  outOfRange: 75
   bossShootPos: {fileID: 235837358191550194}
   bossShoot: {fileID: 2837500446210729701, guid: 6f9c4b3dfb70a954c8ad0a851ae080e8, type: 3}
   shootHeight: 2
@@ -5083,8 +5084,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.1723022, y: 8.176514, z: 4.8752327}
-  m_Center: {x: -0.35941315, y: 4.0268, z: 0.11001396}
+  m_Size: {x: 5.1723022, y: 7.5972667, z: 4.8752327}
+  m_Center: {x: -0.35941315, y: 4.0396233, z: 0.11001396}
 --- !u!82 &8665733105731569219
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5287,6 +5288,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 722c4ec9faa009c44a959ce55469a27c, type: 2}
+    - target: {fileID: 6189299705896439754, guid: 18b86b2702dd1f346a6839add43ebe78, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8d9fe2142fe939347b3acf8d05af8ee1, type: 2}
     - target: {fileID: 8088206632297348722, guid: 18b86b2702dd1f346a6839add43ebe78, type: 3}
       propertyPath: m_Color.b
       value: 1

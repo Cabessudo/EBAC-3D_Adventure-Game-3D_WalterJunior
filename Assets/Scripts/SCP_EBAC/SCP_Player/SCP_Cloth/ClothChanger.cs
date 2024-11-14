@@ -12,6 +12,10 @@ public class ClothChanger : MonoBehaviour
 
     private Texture _defaultTex;
 
+    [Header("Jetpack")]
+    public MeshRenderer jetpackRenderer;
+    public Material mainJetpackMaterial;
+
     [Header("UI")]
     public Image playerHead;
     public Sprite mainCloth;
@@ -21,12 +25,14 @@ public class ClothChanger : MonoBehaviour
         _defaultTex = mesh[0].material.GetTexture(shaderIdName);
     }
 
-    public void ChangeCloth(Texture tex)
+    public void ChangeCloth(Texture currClothTex, Material currJetpackMaterial)
     {
         foreach(var m in mesh)
         {
-            m.material.SetTexture(shaderIdName, tex);
+            m.material.SetTexture(shaderIdName, currClothTex);
         }
+
+        jetpackRenderer.material = currJetpackMaterial;
     }
 
     public void ResetCloth()
@@ -37,6 +43,7 @@ public class ClothChanger : MonoBehaviour
         }
 
         playerHead.sprite = mainCloth;
+        jetpackRenderer.material = mainJetpackMaterial;
     }
     
     [NaughtyAttributes.Button]

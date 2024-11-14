@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 1176506930560871177}
   - component: {fileID: -8938428850152093170}
   - component: {fileID: 3545441266497351175}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PFB_MotherEnemyProjectile
   m_TagString: Shoot
   m_Icon: {fileID: 0}

@@ -16,7 +16,7 @@ namespace Items
         void Start()
         {
             CreateItem();
-            itemLayouts.ForEach(i => i.UpadateUI());
+            // itemLayouts.ForEach(i => i.Invoke(nameof(i.UpdateUI), .1f));
         }
 
         void CreateItem()

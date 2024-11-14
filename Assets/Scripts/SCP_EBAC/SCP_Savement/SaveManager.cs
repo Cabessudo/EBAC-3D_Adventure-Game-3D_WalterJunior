@@ -42,7 +42,6 @@ public class SaveManager : Singleton<SaveManager>
     public void SaveNextLevel(int lvl)
     {
         _saveSetup.levelUnlocked = lvl;
-        SaveAll();
         Save();
     }
 
@@ -50,11 +49,11 @@ public class SaveManager : Singleton<SaveManager>
     {
         if(ItemManager.Instance != null)
         {
-            if(_saveSetup.coins < ItemManager.Instance.GetItemByType(ItemType.Coin).soInt.value)
-                _saveSetup.coins = ItemManager.Instance.GetItemByType(ItemType.Coin).soInt.value;
+            if(_saveSetup.coins < ItemManager.Instance.GetItemByType(ItemType.Coin).itemAmount)
+                _saveSetup.coins = ItemManager.Instance.GetItemByType(ItemType.Coin).itemAmount;
 
-            if(_saveSetup.lifePack < ItemManager.Instance.GetItemByType(ItemType.LifePack).soInt.value)    
-                _saveSetup.lifePack = ItemManager.Instance.GetItemByType(ItemType.LifePack).soInt.value;
+            if(_saveSetup.lifePack < ItemManager.Instance.GetItemByType(ItemType.LifePack).itemAmount)    
+                _saveSetup.lifePack = ItemManager.Instance.GetItemByType(ItemType.LifePack).itemAmount;
 
             Save();
         }
@@ -75,6 +74,21 @@ public class SaveManager : Singleton<SaveManager>
         }
 
     }
+
+    #region Camera Sens
+    public void SaveCameraSensX(float currSens)
+    {
+        _saveSetup.xSens = currSens;
+        Save();
+    }
+
+    public void SaveCameraSensY(float currSens)
+    {
+        _saveSetup.ySens = currSens;
+        Save();
+    }
+    #endregion
+
     #region Audio
     public void SaveMusic(int currVolume)
     {
@@ -130,14 +144,9 @@ public class SaveManager : Singleton<SaveManager>
     #endregion
 
     #region Save & Load 
-    public void SaveAll()
-    {
-        SavePlayerHealth();
-        SaveItems();
-    } 
 
     [NaughtyAttributes.Button]
-    void CreateNewSave()
+    public void CreateNewSave()
     {
         _saveSetup = new SaveSetup();
         _saveSetup.playerName = "";
@@ -145,8 +154,9 @@ public class SaveManager : Singleton<SaveManager>
         _saveSetup.coins = 0;
         _saveSetup.lifePack = 0;
         _saveSetup.playerHealth = 0;
+        _saveSetup.xSens = 150;
+        _saveSetup.ySens = 2;
         _saveSetup.checkPointPos = Vector3.zero;
-        // _saveSetup.clothsUnlockeds.Clear();
         _saveSetup.firstClothType = ClothType.NONE_First;
         _saveSetup.secondClothType = ClothType.NONE_Second;
         Save();
@@ -179,11 +189,6 @@ public class SaveManager : Singleton<SaveManager>
         }
     }
 
-    void OnDestroy()
-    {
-        SaveAll();
-    }
-
     #endregion
 
     [System.Serializable]
@@ -203,6 +208,10 @@ public class SaveManager : Singleton<SaveManager>
         //Audio
         public int music;
         public int sfx;
+
+        //Camera Sensivity
+        public float xSens;
+        public float ySens;
 
         //Cloth PWUPS
         public List<ClothType> clothsUnlockeds;

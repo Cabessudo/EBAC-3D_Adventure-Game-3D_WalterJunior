@@ -38,7 +38,7 @@ public class ItemColletableBase : MonoBehaviour
         if(itemCollider != null) itemCollider.enabled = false;
         SFXPool.Instance?.Play(sfxType);
         ItemManager.Instance?.AddItemByType(itemType);
-        ItemLayoutManager.Instance.itemLayouts?.ForEach(i => i.UpadateUI());
+        ItemLayoutManager.Instance.itemLayouts?.ForEach(i => i.UpdateUI());
         SFXManager.Instance.SetAudioByType(Audio.SFXType.ITEM_COIN, collectSfx);
         Destroy(gameObject, 1);
     }

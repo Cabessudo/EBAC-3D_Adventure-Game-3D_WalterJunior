@@ -34,5 +34,6 @@ namespace Cloth
         public ClothItemBase cloth;
         public Sprite clothSprite;
         public Sprite headSprite;
+        public Material jetpackMat;
     }
 }

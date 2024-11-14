@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8918196508839209721}
   - component: {fileID: 4639801485711008294}
   - component: {fileID: 3129014637031446869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PFB_BossProjectile
   m_TagString: Shoot
   m_Icon: {fileID: 0}

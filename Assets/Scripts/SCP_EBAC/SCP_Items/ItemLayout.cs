@@ -28,10 +28,14 @@ namespace Items
 
         }
         
-        public void UpadateUI()
+        public void UpdateUI()
         {
             itemImage.sprite = _currSetup.sprite;
-            itemAmount.SetText("x" + _currSetup.soInt.value);
+            itemAmount.SetText("x" + _currSetup.itemAmount);
+        }
+
+        private void OnEnable() {
+            Invoke(nameof(UpdateUI), .11f);    
         }
     }
 }

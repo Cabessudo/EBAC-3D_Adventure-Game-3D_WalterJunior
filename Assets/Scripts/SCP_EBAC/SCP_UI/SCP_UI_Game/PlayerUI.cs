@@ -13,6 +13,7 @@ public class PlayerUI : Singleton<PlayerUI>
     public List<Image> firstCloth;
     public List<Image> secondCloth;
     public bool canChangeCloth = true;
+    
 
     [Header("ClothsFill")]
     public UIFillClothUpdater firstClothFill;

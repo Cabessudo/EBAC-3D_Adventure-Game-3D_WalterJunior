@@ -32,7 +32,7 @@ namespace Items
 
         void Reset()
         {
-            itemSetup.ForEach(i => i.soInt.value = 0);
+            itemSetup.ForEach(i => i.itemAmount = 0);
         }
 
         public ItemSetup GetItemByType(ItemType type)
@@ -43,15 +43,16 @@ namespace Items
 
         public void AddItemByType(ItemType itemType, int amount = 1)
         {
-            itemSetup.Find(i => i.itemType == itemType).soInt.value += amount;
+            itemSetup.Find(i => i.itemType == itemType).itemAmount += amount;
         }
 
         public void RemoveItemByType(ItemType itemType, int amount = 1)
         {
             var item = itemSetup.Find(i => i.itemType == itemType);
-            item.soInt.value -= amount;
+            item.itemAmount -= amount;
 
-            if(item.soInt.value <= 0) item.soInt.value = 0;
+            if(item.itemAmount <= 0) item.itemAmount = 0;
+            ItemLayoutManager.Instance.itemLayouts?.ForEach(i => i.UpdateUI());
         }
 
         [NaughtyAttributes.Button]
@@ -65,7 +66,7 @@ namespace Items
     public class ItemSetup
     {
         public ItemType itemType;
-        public SOInt soInt;
+        public int itemAmount;
         public Sprite sprite;
     }
 }    

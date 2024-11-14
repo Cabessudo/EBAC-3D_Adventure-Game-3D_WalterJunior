@@ -5,13 +5,8 @@ using Items;
 
 public class ActionLifePack : MonoBehaviour
 {
-    public SOInt soInt;
+    public int lifepackAmount;
     public KeyCode key = KeyCode.L;
-
-    void Start()
-    {
-        soInt = ItemManager.Instance.GetItemByType(ItemType.LifePack).soInt;
-    }    
 
     // Update is called once per frame
     void Update()
@@ -20,14 +15,19 @@ public class ActionLifePack : MonoBehaviour
         {
             RecoverLife();
         }
+
+        if(lifepackAmount != ItemManager.Instance.GetItemByType(ItemType.LifePack).itemAmount)
+        {
+            lifepackAmount = ItemManager.Instance.GetItemByType(ItemType.LifePack).itemAmount;
+        }
     }
     
     void RecoverLife()
     {
-        if(soInt.value > 0)
+        if(lifepackAmount > 0)
         {
             MyPlayer.Instance.health.RestartLife();
-            ItemManager.Instance.RemoveItemByType(ItemType.LifePack);
+            ItemManager.Instance.RemoveItemByType(ItemType.LifePack, 1);
         }
     }
 }

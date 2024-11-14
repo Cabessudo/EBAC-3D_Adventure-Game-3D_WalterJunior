@@ -14,14 +14,14 @@ namespace Boss
         public override void OnStateEnter(object obj)
         {
             boss = (BossBase)obj;
-            Debug.Log("Booooosssss");
+            // Debug.Log("Booooosssss");
         }
 
         public override void OnStateExit()
         {
             base.OnStateExit();
             boss.StopAllCoroutines();
-            Debug.Log("Exit Boss");
+            // Debug.Log("Exit Boss");
         }
     }
 
@@ -29,7 +29,7 @@ namespace Boss
     {
         public override void OnStateEnter(object objs)
         {
-            Debug.Log("Walk Enter");
+            // Debug.Log("Walk Enter");
             base.OnStateEnter(objs);
             boss.Walk(Action);
             boss.walkState = true;
@@ -39,7 +39,7 @@ namespace Boss
         public override void OnStateStay(object o)
         {
             base.OnStateStay(o);
-            Debug.Log("WALK STAY");
+            // Debug.Log("WALK STAY");
             boss.LookWayPoint();
         }
 
@@ -54,7 +54,7 @@ namespace Boss
     {
         public override void OnStateEnter(object objs)
         {
-            Debug.Log("Atk Enter");
+            // Debug.Log("Atk Enter");
             base.OnStateEnter(objs);
             boss.Attack(Action);
             boss.walkState = false;
@@ -78,8 +78,8 @@ namespace Boss
             //
             if(boss.SFX_boss != null) SFXManager.Instance.SetAudioByType(Audio.SFXType.ENEMY_DEATH, boss.SFX_boss);
             boss.bossHealthUI.SetActive(false); 
-            boss.PS_bossDamage.Emit(50);
-            Debug.Log("Boss Death");
+            boss.PS_bossDamage.Emit(25);
+            // Debug.Log("Boss Death");
         }
     }
 }

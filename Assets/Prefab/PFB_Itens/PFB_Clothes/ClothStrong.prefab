@@ -4926,7 +4926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clothType: 3
   duration: 10
-  damageMultiply: 1
+  damageMultiply: 0.3
 --- !u!1001 &5903166255161912060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4937,7 +4937,7 @@ PrefabInstance:
     - target: {fileID: 1691330199028169570, guid: dad92437af0978248bb2ff030a3f3ef5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 53b1acc9e624d244db4e2ab1985fbe44, type: 2}
+      objectReference: {fileID: 2100000, guid: 207e8228ee6dc8c4e869c7f986c11044, type: 2}
     - target: {fileID: 4280930380576271169, guid: dad92437af0978248bb2ff030a3f3ef5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

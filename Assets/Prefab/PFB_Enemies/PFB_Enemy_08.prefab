@@ -75,14 +75,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerDetected: 0
-  radius: 50
+  radius: 100
   enemyGun: {fileID: 8567020814867913160}
   wallCheck: {fileID: 7116185177499800788}
   moveDuration: 5
   stopTime: 2
   patrolDuration: 1
   closeToPlayer: 0
-  _minDis: 30
+  _minDis: 50
 --- !u!114 &612533483682389606
 MonoBehaviour:
   m_ObjectHideFlags: 0

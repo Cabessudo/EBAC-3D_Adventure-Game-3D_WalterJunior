@@ -31,7 +31,7 @@ namespace Cloth
             Debug.Log("Cloth Collected: " + clothType.ToString());
             Invoke(nameof(HideItem), .1f);
             OnCollect();
-            ChangePWUP(_clothSetup.tex);
+            ChangePWUP(_clothSetup.tex, _clothSetup.jetpackMat);
         
             SaveManager.Instance.SaveClothCollected(clothType);
         }
@@ -60,10 +60,9 @@ namespace Cloth
             gameObject.SetActive(false);
         }
 
-
-        public void ChangePWUP(Texture tex)
+        public void ChangePWUP(Texture currClothTex, Material currJetpackMat)
         {
-            MyPlayer.Instance.ChangePwupCloth(tex, duration);
+            MyPlayer.Instance.ChangePwupCloth(currClothTex, currJetpackMat, duration);
             ActivePWUP();
         }
 

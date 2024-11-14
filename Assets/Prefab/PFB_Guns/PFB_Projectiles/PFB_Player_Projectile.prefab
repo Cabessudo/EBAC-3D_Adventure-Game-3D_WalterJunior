@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 3545441266497351175}
   - component: {fileID: 443574283}
   - component: {fileID: 443574284}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PFB_Player_Projectile
   m_TagString: Shoot
   m_Icon: {fileID: 0}

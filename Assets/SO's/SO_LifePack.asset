@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb08d0150d34d5646bb15037b6083633, type: 3}
   m_Name: SO_LifePack
   m_EditorClassIdentifier: 
-  value: 0
+  value: 7

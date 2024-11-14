@@ -5,20 +5,30 @@ using Anim;
 
 public class GroundCheck : MonoBehaviour
 {
+    private Coroutine _currRoutine;
     public bool grounded;
     public bool isFalling;
-    private bool once;
+    public bool onceLand;
+    public float time = .1f;
 
     void OnTriggerStay(Collider collision)
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            if(!once && MyPlayer.Instance.isAlive)
+            if(_currRoutine != null)
             {
-                MyPlayer.Instance.anim?.SetAnimByType(AnimPlayerType.LAND);
+                StopAllCoroutines();
+                grounded = true; //When the game start this can't be triggered because there's no coroutine
+            }
+
+            if(!onceLand && MyPlayer.Instance.isAlive)
+            {
+                if(isFalling)
+                    MyPlayer.Instance.anim?.SetAnimByType(AnimPlayerType.LAND);
+
                 grounded = true;
-                isFalling = true;
-                once = true;
+                isFalling = false;
+                onceLand = true;
             }
         }
     }
@@ -28,10 +38,22 @@ public class GroundCheck : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             grounded = false;
-            once = false;
+            _currRoutine = StartCoroutine(ExitGroundRoutine());
 
             if(!MyPlayer.Instance.isJumping && MyPlayer.Instance.isAlive)
-                isFalling = true;
+                StartCoroutine(IsFallingRoutine());
         }
+    }
+
+    IEnumerator IsFallingRoutine()
+    {
+        yield return new WaitForSeconds(time);
+        isFalling = true;
+    }
+
+    IEnumerator ExitGroundRoutine()
+    {
+        yield return new WaitForSeconds(time);
+        onceLand = false;
     }
 }

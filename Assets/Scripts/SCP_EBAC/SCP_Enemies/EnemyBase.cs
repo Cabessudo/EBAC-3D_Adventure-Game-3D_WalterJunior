@@ -85,7 +85,7 @@ namespace Enemy
 
         public virtual void EnemyUpdate()
         {}
-
+        
         protected virtual void Init()
         {
             SetPlayer();
@@ -130,7 +130,7 @@ namespace Enemy
 
         protected void OnEnemyDamage(HealthBase health)
         {
-            if(hurtPS != null) hurtPS.Emit(30);
+            if(hurtPS != null) hurtPS.Emit(10);
             if(flashColor != null) flashColor.Flash();
             if(SFX_enemy != null) SFXManager.Instance.SetAudioByType(Audio.SFXType.PLAYER_HURT, SFX_enemy);
         }
@@ -214,13 +214,13 @@ namespace Enemy
         #region Attack
         public virtual void Attack(Action action = null)
         {
-            StartCoroutine(ExplodeRoutine(action));
+            StartCoroutine(AttackRoutine(action));
         }
 
         public virtual void ActionAttack()
         {}
 
-        public virtual IEnumerator ExplodeRoutine(Action action)
+        public virtual IEnumerator AttackRoutine(Action action)
         {
             yield return new WaitForSeconds(1);
             action?.Invoke();

@@ -196,23 +196,6 @@ public class EbacPlayer : Singleton<MyPlayer>
     #endregion
 
     #region Cloths & PowerUp's
-    public void ChangePwupCloth(Texture tex, float time)
-    {
-        StartCoroutine(ChangeClothRoutine(tex, time));
-    }
-
-    public void ChangeCloth(Texture tex)
-    {
-        _cloths.ChangeCloth(tex);
-    }
-
-    IEnumerator ChangeClothRoutine(Texture currTex, float time)
-    {
-        _cloths.ChangeCloth(currTex);
-        yield return new WaitForSeconds(time);
-        _cloths.ResetCloth(); 
-    }
-
     public void ChangeSpeed(float speed, float time)
     {
         StartCoroutine(ChangeSpeedRoutine(speed, time));

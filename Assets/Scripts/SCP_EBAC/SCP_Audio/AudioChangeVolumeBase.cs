@@ -7,7 +7,6 @@ using UnityEngine.Audio;
 public class AudioChangeVolumeBase : MonoBehaviour
 {
     public AudioMixer group;
-    public TMPro.TextMeshProUGUI volumeText;
     public Slider slider;
     public string floatParam;
 

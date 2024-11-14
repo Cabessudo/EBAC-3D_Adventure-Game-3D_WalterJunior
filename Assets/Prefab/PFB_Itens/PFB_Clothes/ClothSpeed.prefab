@@ -4926,7 +4926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clothType: 2
   duration: 10
-  clothSpeed: 75
+  clothSpeed: 115
 --- !u!1001 &3545584727070495851
 PrefabInstance:
   m_ObjectHideFlags: 0

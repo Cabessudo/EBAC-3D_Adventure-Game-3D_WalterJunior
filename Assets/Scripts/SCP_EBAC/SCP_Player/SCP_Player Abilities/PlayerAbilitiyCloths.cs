@@ -25,10 +25,9 @@ public class PlayerAbilitiyCloths : PlayerAbilityBase
 
         if(SaveManager.Instance.setup.firstClothType != ClothType.NONE_First && playerUI.firstClothFill.canUse && playerUI.canChangeCloth) 
         {
-            _currFirstCloth.cloth.ChangePWUP(SaveManager.Instance.firstCloth.tex);
+            _currFirstCloth.cloth.ChangePWUP(SaveManager.Instance.firstCloth.tex, SaveManager.Instance.firstCloth.jetpackMat);
             playerUI.CheckFirstCloth(true);
             playerUI.ChangeMainCloth(SaveManager.Instance.firstCloth.headSprite);
-            Debug.Log(".,,,sada");
         }
     }
     
@@ -38,7 +37,7 @@ public class PlayerAbilitiyCloths : PlayerAbilityBase
 
         if(SaveManager.Instance.setup.secondClothType != ClothType.NONE_Second && playerUI.secondClothFill.canUse && playerUI.canChangeCloth) 
         {
-            _currSecondCloth.cloth.ChangePWUP(SaveManager.Instance.secondCloth.tex);
+            _currSecondCloth.cloth.ChangePWUP(SaveManager.Instance.secondCloth.tex, SaveManager.Instance.secondCloth.jetpackMat);
             playerUI.CheckFirstCloth(false);
             playerUI.ChangeMainCloth(SaveManager.Instance.secondCloth.headSprite);
         }

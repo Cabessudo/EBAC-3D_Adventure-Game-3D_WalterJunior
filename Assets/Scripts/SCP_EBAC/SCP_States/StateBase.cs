@@ -18,7 +18,7 @@ namespace Ebac.StateMachine
 
         public virtual void OnStateExit()
         {
-            Debug.Log("OnStateExit");
+            // Debug.Log("OnStateExit");
         }
     }    
 }

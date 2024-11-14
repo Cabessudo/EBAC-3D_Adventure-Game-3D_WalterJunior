@@ -174,7 +174,20 @@ public class MyPlayer : Singleton<MyPlayer>
         if(_vt != 0 || _ht != 0)
             walk = true;
         else if(_vt == 0 && _ht == 0)
+        {
             walk = false;
+
+            //Stop player when stop walking, stoping it to slide
+
+            if(groundCheck.grounded || !isJumping)
+            {
+                var r = new Vector3(0, _rb.velocity.y, 0);
+                if(_rb.velocity.magnitude > r.magnitude)
+                {
+                    _rb.velocity = Vector3.Lerp(_rb.velocity, r, 5 * Time.deltaTime);
+                }
+            }
+        }
     }
 
     void CheckVelocity()
@@ -254,19 +267,14 @@ public class MyPlayer : Singleton<MyPlayer>
 
     #region Cloths & PowerUp's
 
-    public void ChangePwupCloth(Texture tex, float time)
+    public void ChangePwupCloth(Texture currClothTex, Material currJetpackMat, float time)
     {
-        StartCoroutine(ChangeClothRoutine(tex, time));
+        StartCoroutine(ChangeClothRoutine(currClothTex, currJetpackMat, time));
     }
 
-    public void ChangeCloth(Texture tex)
+    IEnumerator ChangeClothRoutine(Texture currColthTex, Material currJetpackMat, float time)
     {
-        _cloths.ChangeCloth(tex);
-    }
-
-    IEnumerator ChangeClothRoutine(Texture currTex, float time)
-    {
-        _cloths.ChangeCloth(currTex);
+        _cloths.ChangeCloth(currColthTex, currJetpackMat);
         yield return new WaitForSeconds(time);
         _cloths.ResetCloth(); 
         playerUI.canChangeCloth = true;
